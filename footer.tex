@@ -1,0 +1,40 @@
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand\Footer{
+\begin{tikzpicture}[remember picture, overlay]
+\node (background) [
+  shape=rectangle,
+  fill=black,
+  minimum width=\paperwidth,
+  minimum height=3cm,
+  text width=0.92\paperwidth,
+  text height=-0.2cm,
+  anchor=south west,
+  font=\footnotesize\bfseries, align=left
+] at (current page.south west){\color{white}
+  \begin{minipage}[t]{0.215\textwidth}\baselineskip=10pt
+    \tiny
+    \AgreementSenderFirm \\
+    \AgreementSenderAddress \\
+    \AgreementSenderPostalcode \AgreementSenderPlace \\
+    Geschäftsführung: \AgreementSenderManager \\
+  \end{minipage}
+  \begin{minipage}[t]{0.315\textwidth}\baselineskip=10pt
+    \tiny
+    Handelsregister: \AgreementSenderRegister \\
+    Gerichtsstand: \AgreementSenderRegistryCourt \\
+    Steuernummer: \AgreementSenderTaxNumber \\
+    USt-IdNr.: \AgreementSenderVATCode \\
+  \end{minipage}
+  \begin{minipage}[t]{0.22\textwidth}\baselineskip=10pt
+    \tiny
+    Bankverbindung: \AgreementSenderBankInhaber \\
+    BIC: \AgreementSenderBankBIC \\
+    IBAN: \AgreementSenderBankIBAN
+  \end{minipage}
+};
+\node[anchor=south east, yshift=0.2cm] at (current page.south east) {\AgreementSenderFooterLogo};
+\end{tikzpicture}}
+
+\usepackage{fontspec}
+\setmainfont{Montserrat-Regular}

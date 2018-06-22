@@ -2,5 +2,7 @@
 *.dvi
 *.log
 *.pdf
+*.toc
 *-*.tex
+fonts
 logo

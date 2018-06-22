@@ -9,9 +9,11 @@ clean:
 zip:
 	zip -r `date +%Y%m%d%H%M%S`.zip \
 		00.tex \
-		scrlttr2.tex \
-		logo/wordtype.pdf \
-		logo/whitelogo.eps \
+		def.tex \
 		fonts \
-		invoice.def \
-		invoice.sty
+		footer.tex \
+		layout.tex \
+		logo/wordtype.pdf \
+		logo/whitelogo.eps
+
+.PHONY: clean zip

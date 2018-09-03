@@ -2,39 +2,33 @@
 \usetikzlibrary{calc}
 \newcommand\Footer{
 \begin{tikzpicture}[remember picture, overlay]
-\node (background) [
-  shape=rectangle,
-  fill=black,
-  minimum width=\paperwidth,
-  minimum height=3cm,
-  text width=0.92\paperwidth,
-  text height=-0.2cm,
-  anchor=south west,
-  font=\footnotesize\bfseries, align=left
-] at (current page.south west){\color{white}
-  \begin{minipage}[t]{0.215\textwidth}\baselineskip=10pt
-    \tiny
+% Fill a black rectangle at the bottom of the page (height=3cm)
+\fill[black] 
+	([yshift=2.7cm]current page.south west)--([yshift=2.7cm]current page.south east) --
+	(current page.south east)--(current page.south west);
+% --- Now we add the three column text ---
+% Change the font size with the command \fontsize{size}{baselineskip}
+% First column
+\node[minimum width=0.2\textwidth, anchor=north west, white, font=\fontsize{6}{10}\bfseries, align=left] (firstcol) at ([xshift=1cm, yshift=2.2cm]current page.south west) {%
     \AgreementSenderFirm \\
     \AgreementSenderAddress \\
     \AgreementSenderPostalcode \AgreementSenderPlace \\
     Geschäftsführung: \AgreementSenderManager \\
-  \end{minipage}
-  \begin{minipage}[t]{0.315\textwidth}\baselineskip=10pt
-    \tiny
+};
+% Second column
+\node[minimum width=0.2\textwidth, anchor=north west, white, font=\fontsize{6}{10}\bfseries, align=left] (secondcol) at ([xshift=0.5cm]firstcol.north east) {%
     Handelsregister: \AgreementSenderRegister \\
     Gerichtsstand: \AgreementSenderRegistryCourt \\
     Steuernummer: \AgreementSenderTaxNumber \\
     USt-IdNr.: \AgreementSenderVATCode \\
-  \end{minipage}
-  \begin{minipage}[t]{0.22\textwidth}\baselineskip=10pt
-    \tiny
+};
+% Third column
+\node[minimum width=0.2\textwidth, anchor=north west, white, font=\fontsize{6}{10}\bfseries, align=left] (secondcol) at ([xshift=0.5cm]secondcol.north east) {%
     Bankverbindung: \AgreementSenderBankInhaber \\
     BIC: \AgreementSenderBankBIC \\
     IBAN: \AgreementSenderBankIBAN
-  \end{minipage}
 };
-\node[anchor=south east, yshift=0.2cm] at (current page.south east) {\AgreementSenderFooterLogo};
 \end{tikzpicture}}
+\pagestyle{empty}
 
-\usepackage{fontspec}
-\setmainfont{Montserrat-Regular}
+

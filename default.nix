@@ -38,33 +38,36 @@ in stdenv.mkDerivation rec {
       scheme-basic
       luatex
 
-      biblatex
-      blindtext
-      collection-langeuropean
+      # biblatex
+      # blindtext
       collection-basic
       collection-fontsrecommended
+      collection-langeuropean
+      collection-langgerman
       collection-latexrecommended
-      #graphics-def
-      etoolbox
       datetime
+      enumitem
+      etoolbox
       fmtcount
-      german
-      IEEEtran
-      lastpage
-      layouts
-      logreq
+      # graphics-def
+      # IEEEtran
+      # lastpage
+      # layouts
+      # logreq
       numprint
-      pdfcrop
-      realscripts
-      tabu
-      varwidth
-      xargs
-      xtab
+      paracol
+      # pdfcrop
+      # realscripts
+      tableof
+      # tabu
+      tocloft
+      # varwidth
+      # xargs
       xetex
-      graphics-def
-      xltxtra
-      xstring;
-      #inherit redefinedInvoice;
+      # xltxtra
+      # xstring
+      # xtab
+      ;
     })
     zip
     unzip

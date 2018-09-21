@@ -1,8 +1,9 @@
+*-*.tex
 *.aux
 *.dvi
 *.log
+*.out
 *.pdf
 *.toc
-*-*.tex
 fonts
 logo

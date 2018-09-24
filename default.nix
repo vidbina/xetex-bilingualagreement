@@ -21,6 +21,7 @@ stdenv.mkDerivation rec {
       fmtcount
       numprint
       paracol
+      pdfcrop
       tableof
       tocloft
       xetex

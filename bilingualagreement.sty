@@ -194,16 +194,16 @@
 
 % NOTE: all the sections inserted through the \addsection command will appear
 % in the TOC's
-\newcommand{\insertTOCs}{%
+\newcommand{\insertTOCs}[2]{%
   \setlength{\cftbeforesecskip}{-2pt} % Space between lines
   \renewcommand{\cftsecaftersnum}{.}
   \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 
   \bigskip
   \addtext{%
-    \centerline{\large\textbf{Inhaltsverzeichnis}}
+    \centerline{\large\textbf{#1}}
   }{%
-    \centerline{\large\textbf{Table of Contents}}
+    \centerline{\large\textbf{#2}}
   }
 
   \begin{minipage}[t]{0.47\textwidth}
@@ -235,5 +235,4 @@
   }
 
   \toftagstart{b}
-  \newpage
 }

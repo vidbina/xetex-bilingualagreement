@@ -216,23 +216,26 @@
     \tableof{e}
   \end{minipage}%
 
-  \medskip
+  % TODO: what is the purpose of this? And where should it be located if we
+  % relocate the Annex listing code to a new command?
+  \toftagstart{b}
+}
 
+% TODO: Implement a third argument to populate the annex listing.
+\newcommand{\listAnnexes}[2]{
   {%
   \footnotesize
   \hspace*{0.01\textwidth}%
   \begin{minipage}{0.47\textwidth}
-    \centerline{\large\textbf{Anhänge}}
+    \centerline{\large\textbf{#1}}
     \medskip
     \textbf{Annex 1} \enskip Individualvereinbarungsmuster
   \end{minipage}%
   \hspace*{0.03\textwidth}%
   \begin{minipage}{0.47\textwidth}
-    \centerline{\large\textbf{Annexes}}
+    \centerline{\large\textbf{#2}}
     \medskip
     \textbf{Annex 1} \enskip Individual Agreement Template
   \end{minipage}
   }
-
-  \toftagstart{b}
 }

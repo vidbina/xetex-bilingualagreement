@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{longinvoice}[2018/06/08]
+\ProvidesPackage{bilingualagreement}[2018/06/08]
 
 \RequirePackage{}
 
@@ -237,17 +237,3 @@
   \toftagstart{b}
   \newpage
 }
-
-\ifCustomerIsDomestic\newcommand{\AgreementVenueLeft}{%
-  \AgreementVenueCourtLeft
-}\else\newcommand{\AgreementVenueLeft}{%
-  \AgreementVenueArbitrationLeft
-}
-\fi
-
-\ifCustomerIsDomestic\newcommand{\AgreementVenueRight}{%
-  \AgreementVenueCourtRight
-}\else\newcommand{\AgreementVenueRight}{%
-  \AgreementVenueArbitrationRight
-}
-\fi

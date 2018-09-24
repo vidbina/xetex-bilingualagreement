@@ -1,0 +1,37 @@
+\def\LabelAddress{Anschrift}
+\def\LabelEmail{E-Mail}
+\def\LabelBankDetails{Bankverbindung}
+\def\LabelBIC{Bankleitzahl}
+\def\LabelIBAN{IBAN}
+\def\LabelPhonenumber{Rufnummer}
+\def\LabelWebsite{Webseite}
+\def\LabelInvoice{Rechnung}
+\def\LabelManagement{Geschäftsführung}
+\def\LabelChamberOfCommerce{Handelsregister}
+\def\LabelCourt{Gerichtsstand}
+\def\LabelTaxId{Steuernummer}
+\def\LabelVatId{USt-IdNr.}
+\def\LabelOpeningGeneric{To whom it concerns,}
+\def\LabelOpeningTargeted{Sehr geehrte}
+\def\LabelClosing{Mit freundlichem Gruß}
+\def\LabelSubtotalExpenses{Zwischensumme Auslagen}
+\def\LabelSubtotalFees{Zwischensumme Honorare}
+\def\LabelTotalExpenses{Gesamtbetrag Auslagen}
+\def\LabelTotalFees{Gesamtbetrag Honorare}
+\def\LabelSubtotal{Zwischensumme}
+\def\LabelSubtotalContinuation{Zwischensumme (fortgesetzt)}
+\def\LabelSubtotalToBeContinued{Zwischensumme (Fortgesetzung folgt)}
+\def\LabelVAT{Mehrwehrsteuer}
+\def\LabelExpenses{Auslagen}
+\def\LabelExpenses{Auslage}
+\def\LabelActivity{Aktivität}
+\def\LabelRate{Gebühr}
+\def\LabelUnit{Einheit}
+\def\LabelCount{Anzahl}
+\def\LabelAmount{Summe}
+\def\LabelCost{Preis}
+\def\LabelCurrency{Währung}
+\def\LabelFactor{Faktor}
+\def\LabelDay{Tag}
+\def\LabelHour{Stunde}
+\def\LabelTOTAL{TOTAL}

@@ -45,10 +45,10 @@
         \toftagthis{e}
         \hypersetup{bookmarksdepth=-2}
         \section{#3}
+        \IfInteger{\getpagerefnumber{#1}}{
         \BookmarkAtEnd{%
-    %\bookmarksetup{startatroot}%
-    \expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
-    }
+    	\expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
+    	}}{}
         \hypersetup{bookmarksdepth}% back to tocdepth
       \end{rightcolumn}
     \end{paracol}
@@ -92,10 +92,11 @@
         \begin{center}
           \LARGE\bfseries#2
         \end{center}
+        \IfInteger{\getpagerefnumber{thetitle}}{
         \BookmarkAtEnd{%
-    \bookmarksetup{startatroot}%
-    \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
-    }
+    	\bookmarksetup{startatroot}%
+    	\expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
+    	}}{}
       \end{rightcolumn}
     \end{paracol}
     \end{sloppypar}
@@ -108,7 +109,9 @@
       \begin{leftcolumn*}
         \begin{center}
           \LARGE\bfseries#1\label{thetitle}
+          \IfInteger{\getpagerefnumber{thetitle}}{
           \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #1 --- #2}%
+          }{}
         \end{center}
       \end{leftcolumn*}
       \begin{rightcolumn}

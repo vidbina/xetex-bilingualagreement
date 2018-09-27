@@ -3,28 +3,23 @@
 % https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679
 % https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32016R0679
 
-\def\AgreementText{
-  % TODO: Uncommend when agreement environment is implemented
 
-  %\begin{agreement}[0.45\texwidth][0.1\texwidth][0.45\texwidth]
+\def\AgreementText{
+
+  \begin{agreement}
     \addtitle{DSGVO}{GDPR}
   
     \insertTOCs{Inhaltsverzeichnis}{Table of Contents}
   
     \medskip
   
-    \listAnnexes{Anhänge}{Annexes}{
-      % TODO: Implement the following command let's see if we can use
-      % enumerate[Annex 1] or perhaps something else. With lines that are longer
-      % to require linebreaks we still want each Annex item to be at the same
-      % horizontal position as it's counterpart in the opposing column.
-  
-      %\annex{Individualvereinbarungsmuster}{Individual Agreement Template}
-    }
+    \begin{listAnnexes}{Anhänge}{Annexes}
+ 	  \addAnnex{Individualvereinbarungsmuster}{Individual Agreement Template}
+    \end{listAnnexes}
   
     \newpage
   
-    \addsection{Allgemeine Bestimmungen}{General Provisions}
+    \addsection{GeneralProvisions}{Allgemeine Bestimmungen}{General Provisions}
   
     \addclause{SubjectMatter}{Gegenstand und Ziele}{Subject Matter}{
       \begin{enumerate}[(1)]
@@ -110,7 +105,7 @@
           intermediary service providers in Articles 12 to 15 of that Directive.
       \end{enumerate}
     }
-  %\end{agreement}
+  \end{agreement}
 } 
 
 \input{layout}

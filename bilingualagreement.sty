@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bilingualagreement}[2018/06/08]
+\ProvidesPackage{bilingualagreement}[2018/07/24]
 
 \RequirePackage{}
 
@@ -21,6 +21,14 @@
 \ProcessOptions\relax
 
 %\input{agreement.def}
+
+% TODO: Implement environment that optionally takes three argument to determine
+% the left column width, the seperator width and the right column width
+% respectively.
+
+%\NewDocumentEnvironment{agreement}{O{0.45} O{0.1} O{0.45}}{%
+%}{%
+%}
 
 % Define counters for clauses and subclauses
 \newcounter{clausecount}[section]

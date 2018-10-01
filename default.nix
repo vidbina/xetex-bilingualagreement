@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
       tableof
       tocloft
       xetex
+      xstring
       ;
     })
     zip

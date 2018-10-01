@@ -78,8 +78,8 @@
 \fi
 
 % Title
-\ifOutlineinblocks%
-  \newcommand{\addtitle}[2]{%
+\newcommand{\addtitle}[2]{%
+  \ifOutlineinblocks%
     \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
@@ -101,9 +101,7 @@
     \end{paracol}
     \end{sloppypar}
     \medskip
-  }
-\else%
-  \newcommand{\addtitle}[2]{%
+  \else%
     \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
@@ -122,8 +120,8 @@
     \end{paracol}
     \end{sloppypar}
     \medskip
-  }
-\fi
+  \fi
+}
 
 
 % General text

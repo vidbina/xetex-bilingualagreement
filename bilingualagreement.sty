@@ -138,6 +138,14 @@
   \end{sloppypar}
 }
 
+\newcommand{\addfigure}[2]{%
+  \begin{figure}[htb]
+    \centering
+    \resizebox{1\textwidth}{!}{#1}
+    #2
+  \end{figure}
+}
+
 % Signature section
 \newcommand{\addsigsection}[0]{%
   \begin{center}

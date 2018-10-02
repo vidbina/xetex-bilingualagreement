@@ -28,7 +28,12 @@
 \def\AgreementNumberStyle{\npstyleenglish}
 
 \def\afterpackages{
-  \usepackage[english]{babel}
+  \usepackage[english,german]{babel}
+  \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+  \addto\captionsgerman{
+    \renewcommand{\figurename}{Fig.}
+  }
+
   \usepackage{bilingualagreement}
   \usepackage{datetime}
 }

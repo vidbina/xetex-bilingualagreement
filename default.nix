@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
       enumitem
       etoolbox
       fmtcount
+      lastpage
       numprint
       paracol
       pdfcrop

@@ -4,7 +4,7 @@
 		xelatex -halt-on-error $<
 	
 clean:
-	rm -rf *.aux *.dvi *.log *.toc
+	rm -rf *.aux *.dvi *.log *.out *.toc
 
 zip:
 	zip -r `date +%Y%m%d%H%M%S`.zip \

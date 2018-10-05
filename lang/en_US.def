@@ -1,0 +1,37 @@
+\def\LabelAddress{Address}
+\def\LabelEmail{E-Mail}
+\def\LabelBankDetails{Bank details}
+\def\LabelBIC{BIC}
+\def\LabelIBAN{IBAN}
+\def\LabelPhonenumber{Phonenumber}
+\def\LabelWebsite{Website}
+\def\LabelInvoice{Invoice}
+\def\LabelManagement{Management}
+\def\LabelChamberOfCommerce{Chamber of Commerce}
+\def\LabelCourt{Court}
+\def\LabelTaxId{Tax Id.}
+\def\LabelVatId{VAT Id.}
+\def\LabelOpeningGeneric{To whom it may concern,}
+\def\LabelOpeningTargeted{Dear}
+\def\LabelClosing{Regards,}
+\def\LabelSubtotalExpenses{Subtotal expenses}
+\def\LabelSubtotalFees{Subtotal fees}
+\def\LabelTotalExpenses{Total expenses}
+\def\LabelTotalFees{Total fees}
+\def\LabelSubtotal{Subtotal}
+\def\LabelSubtotalContinuation{Subtotal (continued from previous page)}
+\def\LabelSubtotalToBeContinued{Subtotal (continued on next page)}
+\def\LabelVAT{VAT}
+\def\LabelExpenses{Expenses}
+\def\LabelExpense{Expense}
+\def\LabelActivity{Activity}
+\def\LabelRate{Rate}
+\def\LabelUnit{Unit}
+\def\LabelCount{Count}
+\def\LabelAmount{Amount}
+\def\LabelCost{Cost}
+\def\LabelCurrency{Currency}
+\def\LabelFactor{Factor}
+\def\LabelDay{day}
+\def\LabelHour{hour}
+\def\LabelTOTAL{TOTAL}

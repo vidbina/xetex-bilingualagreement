@@ -1,34 +1,40 @@
-\def\AgreementSenderName{Sender Name}
-\def\AgreementSenderManager{Manager Name}
-\def\AgreementSenderSignature{Signatory Name}
-\def\AgreementSenderFirm{Company LegalForm}
-\def\AgreementSenderAddress{Company Address 999}
-\def\AgreementSenderPostalcode{99999}
-\def\AgreementSenderPlace{City}
-\def\AgreementSenderCompleteAddress{
-  \AgreementSenderAddress \\
-  \AgreementSenderPostalcode \AgreementSenderPlace
+\def\AgreementSupplierName{Firm, Inc.}
+\def\AgreementSupplierManager{Manager Name}
+\def\AgreementSupplierSignature{Signatory Name}
+\def\AgreementSupplierRepresentative{Representative}
+\def\AgreementSupplierAddress{Company Address 999}
+\def\AgreementSupplierPostalcode{99999}
+\def\AgreementSupplierPlace{City}
+\def\AgreementSupplierCompleteAddress{
+  \AgreementSupplierAddress \\
+  \AgreementSupplierPostalcode \AgreementSupplierPlace
 }
-\def\AgreementSenderPostalcode{10999}
-\def\AgreementSenderEmail{invoices@example.com}
-\def\AgreementSenderBankName{Ethical Bank}
-\def\AgreementSenderBankIBAN{XX99 9999 9999 9999 9999 99}
-\def\AgreementSenderBankBIC{XXXXXXXXXXX}
-\def\AgreementSenderBankInhaber{Ethical Banking Corp}
-\def\AgreementSenderTaxNumber{XX/XXX/XXXXX}
-\def\AgreementSenderVATCode{EU000000000}
-\def\AgreementSenderFinanzamt{City}
-\def\AgreementSenderRegister{Register}
-\def\AgreementSenderRegisterNumber{REG 999999}
-\def\AgreementSenderRegistryCourt{Court of City}
-\def\AgreementSenderFooterLogo{
+\def\AgreementSupplierPostalcode{10999}
+\def\AgreementSupplierEmail{invoices@example.com}
+\def\AgreementSupplierBankName{Ethical Bank}
+\def\AgreementSupplierBankIBAN{XX99 9999 9999 9999 9999 99}
+\def\AgreementSupplierBankBIC{XXXXXXXXXXX}
+\def\AgreementSupplierBankInhaber{Ethical Banking Corp}
+\def\AgreementSupplierTaxNumber{XX/XXX/XXXXX}
+\def\AgreementSupplierVATCode{EU000000000}
+\def\AgreementSupplierFinanzamt{City}
+\def\AgreementSupplierRegister{Register}
+\def\AgreementSupplierRegisterNumber{REG 999999}
+\def\AgreementSupplierRegistryCourt{Court of City}
+\def\AgreementSupplierFooterLogo{
   %\includegraphics[width=4cm, keepaspectratio]{./logo/footerlogo.eps}
 }
 
 \def\AgreementNumberStyle{\npstyleenglish}
 
 \def\afterpackages{
-  \usepackage[english]{babel}
+  \usepackage[english,german]{babel}
+  \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+  \addto\captionsgerman{
+    \renewcommand{\figurename}{Fig.}
+  }
+
+  \usepackage{bilingualagreement}
   \usepackage{datetime}
 }
 

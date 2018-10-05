@@ -1,0 +1,318 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bilingualagreement}[2018/07/24]
+
+\RequirePackage{}
+
+% Conditional for the outline
+\newif\ifOutlineinblocks
+\Outlineinblocksfalse
+
+\DeclareOption{de_DE}{
+  \input{lang/de_DE.def}
+}
+\DeclareOption{en_US}{
+  \input{lang/en_US.def}
+}
+\DeclareOption{OutlineInBlocks}{
+  \Outlineinblockstrue
+}
+
+\ExecuteOptions{en_US}
+\ProcessOptions\relax
+
+%\input{agreement.def}
+
+% Define counters for clauses and subclauses
+\newcounter{clausecount}[section]
+\newcounter{subclausecount}[clausecount]
+\newcounter{subsubclausecount}[subclausecount]
+\renewcommand{\theclausecount}{\thesection.\arabic{clausecount}}
+\renewcommand{\thesubclausecount}{\theclausecount.\arabic{subclausecount}}
+\renewcommand{\thesubsubclausecount}{\thesubclausecount.\arabic{subsubclausecount}}
+
+% Section
+\ifOutlineinblocks%
+  \newcounter{seccoun} % Counter for sections
+  \setcounter{seccoun}{1}
+  \newcommand{\addsection}[3]{%
+    \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \toftagthis{d}
+        \section{#2}\label{#1}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \toftagthis{e}
+        \hypersetup{bookmarksdepth=-2}
+        \section{#3}
+        \IfStrEq{\getpagerefnumber{#1}}{0}{}{
+        \BookmarkAtEnd{%
+    	\expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
+    	}}
+        \hypersetup{bookmarksdepth}% back to tocdepth
+      \end{rightcolumn}
+    \end{paracol}
+    \end{sloppypar}
+    \stepcounter{seccoun}
+  }
+\else%
+  \newcounter{seccoun} % Counter for sections
+  \setcounter{seccoun}{1}
+  \newcommand{\addsection}[3]{%
+    \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \toftagthis{d}
+        \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \toftagthis{e}
+        \hypersetup{bookmarksdepth=-2}
+        \section{#3}
+        \hypersetup{bookmarksdepth}% back to tocdepth
+      \end{rightcolumn}
+    \end{paracol}
+    \end{sloppypar}
+    \stepcounter{seccoun}
+  }
+\fi
+
+% Title
+\newcommand{\addtitle}[2]{%
+  \ifOutlineinblocks%
+    \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \begin{center}
+          \LARGE\bfseries#1\label{thetitle}
+        \end{center}
+        \bookmark[page=1, level=-1]{\bfseries #1}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \begin{center}
+          \LARGE\bfseries#2
+        \end{center}
+        \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
+        \BookmarkAtEnd{%
+    	\bookmarksetup{startatroot}%
+    	\expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
+    	}}
+      \end{rightcolumn}
+    \end{paracol}
+    \end{sloppypar}
+    \medskip
+  \else%
+    \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \begin{center}
+          \LARGE\bfseries#1\label{thetitle}
+          \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
+          \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #1 --- #2}%
+          }
+        \end{center}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \begin{center}
+          \LARGE\bfseries#2
+        \end{center}
+      \end{rightcolumn}
+    \end{paracol}
+    \end{sloppypar}
+    \medskip
+  \fi
+}
+
+
+% General text
+\newcommand{\addtext}[2]{%
+  \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        #1
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        #2
+      \end{rightcolumn}
+    \end{paracol}
+  \end{sloppypar}
+}
+
+\newcommand{\addfigure}[3]{%
+  \begin{figure}[htb]
+    \centering
+    \resizebox{1\textwidth}{!}{#1}
+    \caption{#2 --- #3}
+  \end{figure}
+}
+
+% Signature section
+\newcommand{\addsigsection}[0]{%
+  \begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \hspace*{0.75cm}
+    \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}\hline
+      \bfseries\AgreementCustomerName&
+      \bfseries\AgreementSupplierName\\
+
+      \hline & \\[0.75cm] &\\\hline
+
+      \TextField[name=SignatoryName,charsize=8pt,value=\AgreementCustomerRepresentative,width=0.3\textwidth]{\textbf{Name/Name}: }&
+      \textbf{Name/Name}: \AgreementSupplierRepresentative
+      \\\hline
+
+      \TextField[name=SignatoryTitle,charsize=8pt,width=0.3\textwidth]{\textbf{Titel/Title}: }&
+      \textbf{Titel/Title}: \AgreementSupplierTitle
+      \\\hline
+
+      \TextField[name=SignedDate,charsize=8pt,width=0.3\textwidth]{\textbf{Datum/Date}: }&
+      \textbf{Datum/Date}: \AgreementSupplierDate
+      \\\hline
+    \end{tabular}
+  \end{center}
+}
+
+% Intro section
+\newcommand{\addintro}[8]{%
+  #1
+  \par\medskip
+  {\bfseries\AgreementCustomerName,}
+
+  \par#2
+
+  \par
+  \begin{flushright}
+  \bfseries\textendash{} ``#3'' \textendash{}
+  \end{flushright}
+
+  \par
+  \noindent #4
+  \medskip\par
+
+  \medskip\par
+  {\bfseries \AgreementSupplierName,}
+
+  \par#5
+
+  \begin{flushright}
+    \bfseries\textendash{} ``#6'' \textendash{}
+  \end{flushright}
+
+  \medskip\par#7
+
+  \medskip\par#8
+}
+
+% Clause
+\newcommand{\addclause}[5]{%
+\refstepcounter{clausecount} % Increase the clausecont counter
+  \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \begin{itemize}
+          \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
+        \end{itemize}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \begin{itemize}
+          \item[\bfseries\theclausecount] \textbf{#3} \\ #5
+        \end{itemize}
+      \end{rightcolumn}
+    \end{paracol}
+  \end{sloppypar}
+}
+
+% --- Adds a subclause ---%
+\newcommand{\addsubclause}[5]{%
+\refstepcounter{subclausecount} % Increase the subclausecont counter
+  \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \begin{itemize}
+          \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
+        \end{itemize}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \begin{itemize}
+          \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
+        \end{itemize}
+      \end{rightcolumn}
+    \end{paracol}
+  \end{sloppypar}
+}
+
+% --- Adds a subsubclause ---%
+\newcommand{\addsubsubclause}[5]{%
+\refstepcounter{subsubclausecount} % Increase the subclausecont counter
+  \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \begin{itemize}
+          \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+        \end{itemize}
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \begin{itemize}
+          \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
+        \end{itemize}
+      \end{rightcolumn}
+    \end{paracol}
+  \end{sloppypar}
+}
+
+% NOTE: all the sections inserted through the \addsection command will appear
+% in the TOC's
+\newcommand{\insertTOCs}[2]{%
+  \setlength{\cftbeforesecskip}{-2pt} % Space between lines
+  \renewcommand{\cftsecaftersnum}{.}
+  \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+  \bigskip
+  \addtext{%
+    \centerline{\large\textbf{#1}}
+  }{%
+    \centerline{\large\textbf{#2}}
+  }
+
+  \begin{minipage}[t]{0.47\textwidth}
+    \fontsize{8}{12}
+    \tableof{d}
+  \end{minipage}%
+  \hspace*{0.03\textwidth}%
+  \begin{minipage}[t]{0.48\textwidth}
+    \fontsize{8}{12}
+    \tableof{e}
+  \end{minipage}%
+}
+
+% An environment to list Annexes
+\NewDocumentEnvironment{listAnnexes}{m m O{0.35\linewidth} O{0.05\linewidth} O{0.35\linewidth}}{%
+  \medskip
+  \global\newcounter{annex}
+  \global\setcounter{annex}{0}
+  \footnotesize
+  \begin{minipage}{0.5\linewidth}
+  \centerline{\bfseries\large #1}
+  \end{minipage}%
+  \begin{minipage}{0.5\linewidth}
+  \centerline{\bfseries\large #2}
+  \end{minipage}
+  \par
+  \smallskip
+    \begin{tabular}{l@{\hskip 4pt}p{#3}p{#4}l@{\hskip 4pt}p{#5}}
+}{%
+  \end{tabular}
+  \setcounter{annex}{0}
+}
+
+% A command to list annexes
+\newcommand{\addAnnex}[2]{%
+ \global\stepcounter{annex}\textbf{Annex \theannex} & #1 && \textbf{Annex \theannex} & #2 \\
+}
+
+% agreement environment
+\NewDocumentEnvironment{agreement}{O{0.5}}{%
+\columnratio{#1}
+}{%
+}

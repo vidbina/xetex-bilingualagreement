@@ -19,11 +19,14 @@ stdenv.mkDerivation rec {
       enumitem
       etoolbox
       fmtcount
+      lastpage
       numprint
       paracol
+      pdfcrop
       tableof
       tocloft
       xetex
+      xstring
       ;
     })
     zip

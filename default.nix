@@ -1,10 +1,11 @@
-{ stdenv, pkgs }:
+{ pkgs ? import <nixpkgs> {} }:
 
-stdenv.mkDerivation rec {
-  name = "asabina-latex-agreements-${version}";
-  version = "0.1.0";
-
+let
+  myEnvFun = pkgs.myEnvFun;
+in myEnvFun rec {
+  name = "xetex-bilingualagreements";
   buildInputs = with pkgs; [
+    gnumake
     (texlive.combine {
       inherit (texlive)
       scheme-basic

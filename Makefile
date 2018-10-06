@@ -16,4 +16,13 @@ zip:
 		logo/wordtype.pdf \
 		logo/whitelogo.eps
 
+DOCKER_TAG=bilingualagreement-builder
+DOCKER_WORKDIR=/tmp/build
+
+docker-image:
+	docker build -t ${DOCKER_TAG} .
+
+docker-shell:
+	docker run --rm -v ${PWD}:${DOCKER_WORKDIR} -it ${DOCKER_TAG} bash
+
 .PHONY: clean zip

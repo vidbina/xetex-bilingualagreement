@@ -4,6 +4,6 @@ DOCKER_IMAGE=${DOCKER_REGISTRY}${DOCKER_NAME}:${DOCKER_TAG}
 
 docker pull ${DOCKER_IMAGE}
 if [ $? != 0 ]; then
-  echo docker build -t ${DOCKER_IMAGE} .
+  docker build -t ${DOCKER_IMAGE} .
   echo docker push ${DOCKER_IMAGE}
 fi

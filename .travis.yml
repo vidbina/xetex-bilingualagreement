@@ -1,0 +1,15 @@
+sudo: required
+
+language: minimal
+
+env:
+  DOCKER_NAME=$TRAVIS_REPO_SLUG
+
+services:
+  - docker
+
+install:
+  - bash .pull-or-build-docker-image.sh
+
+script:
+  - docker run --rm -it -v ${PWD}:/tmp/build ${DOCKER_NAME}:`sha256sum Dockerfile | awk '{print $1}'` make gdpr.pdf

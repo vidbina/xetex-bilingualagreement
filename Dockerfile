@@ -6,3 +6,5 @@ COPY *.nix ./
 COPY src src/
 
 RUN nix-env -if default.nix --show-trace
+
+CMD load-env-xetex-bilingualagreements

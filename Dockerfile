@@ -1,4 +1,4 @@
-FROM lnl7/nix:2018-09-21
+FROM nixos/nix:2.1.1
 
 WORKDIR /tmp/build
 

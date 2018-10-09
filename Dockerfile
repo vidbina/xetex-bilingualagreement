@@ -5,8 +5,4 @@ WORKDIR /tmp/build
 COPY *.nix ./
 COPY src src/
 
-#RUN nix-store -r $(nix-instantiate)
-
-RUN nix-env -if default.nix
-
-CMD load-env-xetex-bilingualagreements
+RUN nix-env -if default.nix --show-trace

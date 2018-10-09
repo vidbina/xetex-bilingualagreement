@@ -2,8 +2,8 @@ FROM lnl7/nix:2018-09-21
 
 WORKDIR /tmp/build
 
-COPY default.nix .
-COPY shell.nix .
+COPY *.nix ./
+COPY src src/
 
 #RUN nix-store -r $(nix-instantiate)
 

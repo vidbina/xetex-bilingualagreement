@@ -24,18 +24,10 @@
 \def\AgreementSupplierFooterLogo{
   %\includegraphics[width=4cm, keepaspectratio]{./logo/footerlogo.eps}
 }
-
+\RequirePackage{numprint}
 \def\AgreementNumberStyle{\npstyleenglish}
-
-\def\afterpackages{
-  \usepackage[english,german]{babel}
-  \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
-  \addto\captionsgerman{
-    \renewcommand{\figurename}{Fig.}
-  }
-
-  \usepackage{bilingualagreement}
-  \usepackage{datetime}
-}
-
 %\def\InvoiceLogo{./logo/wordtype.pdf}
+\usepackage{datetime}
+\ifdef{\AgreementNumberStyle}{\AgreementNumberStyle}{}
+\newdate{invoiceDate}{\AgreementDay}{\AgreementMonth}{\AgreementYear}
+\def\AgreementDate{\displaydate{invoiceDate}}

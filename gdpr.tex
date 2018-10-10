@@ -1,12 +1,9 @@
-\input{def}
-
 % https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679
 % https://eur-lex.europa.eu/legal-content/DE/TXT/HTML/?uri=CELEX:32016R0679
 
 \def\AgreementTitle{GSGVO --- GDPR}
 
 \def\AgreementText{
-
   \begin{agreement}[0.5]
     \addtitle{DSGVO}{GDPR}
 
@@ -14,8 +11,9 @@
 
     \medskip
 
-    \begin{listAnnexes}{Anhänge}{Annexes}
+    \begin{listAnnexes}{Anhänge}{Annexes}%[0.25\linewidth][0.05\linewidth][0.25\linewidth]
  	  \addAnnex{Individualvereinbarungsmuster}{Individual Agreement Template}
+ 	  \addAnnex{Individualvereinbarungsmuster}{Individual Agreement Template}[Label left][Label right] 
     \end{listAnnexes}
 
     \newpage

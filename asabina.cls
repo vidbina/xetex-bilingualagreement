@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{asabina}[2018/10/08 An Institutional LaTeX Class]
+\ProvidesClass{asabina}[2018/10/08 A Corporate LaTeX Class]
 % This class uses the scrartcl class
 \LoadClass[%
   a4paper,
@@ -35,7 +35,6 @@
 
 \widowpenalty10000	% Is infinitely bad to have widow lines
 \clubpenalty100000	% Is infinitely bad to have orphan lines
-
 
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage[atend]{bookmark}

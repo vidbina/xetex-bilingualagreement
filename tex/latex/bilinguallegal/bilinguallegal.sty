@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bilingualagreement}[2018/07/24 A package to write documents with clauses side by side]
+\ProvidesPackage{bilinguallegal}[2018/07/24 A package to write documents with clauses side by side]
 
 % Conditional for the outline
 \newif\ifOutlineinblocks
@@ -327,8 +327,7 @@
 	\global\stepcounter{annex}\textbf{\theannex.}&\textbf{#3} & #1 && \textbf{\theannex.}&\textbf{#4} & #2 \\
 }
 
-% bilingualagreement environment
-\NewDocumentEnvironment{bilingualagreement}{O{0.5}}{%
+% bilinguallegal environment
+\NewDocumentEnvironment{legal}{O{0.5}}{%
   \columnratio{#1}
-}{%
-}
+}{}

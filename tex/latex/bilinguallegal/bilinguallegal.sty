@@ -48,7 +48,7 @@
 % Section
 \newcounter{seccoun} % Counter for sections
 \setcounter{seccoun}{1}
-\newcommand{\addsection}[3]{%
+\NewDocumentCommand{\addsection}{ m m m }{%
     \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
@@ -78,7 +78,7 @@
 }
 
 % Title
-\newcommand{\addtitle}[2]{%
+\NewDocumentCommand{\addtitle}{ m m }{%
     \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
@@ -115,7 +115,7 @@
 }
 
 % General text
-\newcommand{\addtext}[2]{%
+\NewDocumentCommand{\addtext}{ m m }{%
   \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
@@ -128,7 +128,7 @@
   \end{sloppypar}
 }
 
-\newcommand{\addfigure}[3]{%
+\NewDocumentCommand{\addfigure}{ m m m }{%
   \begin{figure}[htb]
     \centering
     \resizebox{1\textwidth}{!}{#1}
@@ -139,7 +139,7 @@
 % Signature section
 % TODO remove harcoded labels
 % TODO take input from args
-\newcommand{\addsigsection}[0]{%
+\NewDocumentCommand{\addsigsection}{ }{%
   \begin{center}
     \small
     \renewcommand{\arraystretch}{1.2}
@@ -197,7 +197,7 @@
 }
 
 % Clause
-\newcommand{\addclause}[5]{%
+\NewDocumentCommand{\addclause}{ m m m m m }{%
 \refstepcounter{clausecount} % Increase the clausecont counter
   \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
@@ -216,7 +216,7 @@
 }
 
 % Adds a subclause
-\newcommand{\addsubclause}[5]{%
+\NewDocumentCommand{\addsubclause}{ m m m m m }{%
 \refstepcounter{subclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
@@ -235,7 +235,7 @@
 }
 
 % Adds a subsubclause 
-\newcommand{\addsubsubclause}[5]{%
+\NewDocumentCommand{\addsubsubclause}{ m m m m m }{%
 \refstepcounter{subsubclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
@@ -255,7 +255,7 @@
 
 % NOTE: all the sections inserted through the \addsection command will appear
 % in the TOC's
-\newcommand{\insertTOCs}[2]{%
+\NewDocumentCommand{\insertTOCs}{ m m }{%
   \setlength{\cftbeforesecskip}{-2pt} % Space between lines
   \renewcommand{\cftsecaftersnum}{.}
   \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}

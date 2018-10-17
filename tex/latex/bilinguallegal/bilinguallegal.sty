@@ -9,6 +9,12 @@
   \Outlineinblockstrue
 }
 
+\newif\ifDisplaySideBySide
+\DisplaySideBySidefalse
+\DeclareOption{single}{
+  \DisplaySideBySidefalse
+}
+
 \ProcessOptions\relax
 
 % Load the following packages
@@ -48,8 +54,10 @@
 % Title
 \NewDocumentCommand{\addtitle}{ m m }{%
     \begin{sloppypar}  % To prevent overfull lines
+\ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
+\fi
         \begin{center}
           \LARGE\bfseries#1\label{thetitle}
   \ifOutlineinblocks%
@@ -63,8 +71,10 @@
         \bookmark[page=1, level=-1]{\bfseries #1}
   \else%
   \fi
+\ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
+\fi
         \begin{center}
           \LARGE\bfseries#2
         \end{center}
@@ -76,8 +86,10 @@
     }}
   \else%
   \fi
+\ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
+\fi
     \end{sloppypar}
     \medskip
 }
@@ -87,16 +99,20 @@
 \setcounter{seccoun}{1}
 \NewDocumentCommand{\addsection}{ m m m }{%
     \begin{sloppypar}  % To prevent overfull lines
+\ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
+\fi
         \toftagthis{d}
 \ifOutlineinblocks%
         \section{#2}\label{#1}
 \else%
         \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
 \fi
+\ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
+\fi
         \toftagthis{e}
         \hypersetup{bookmarksdepth=-2}
         \section{#3}
@@ -108,8 +124,10 @@
 \else%
 \fi
         \hypersetup{bookmarksdepth}% back to tocdepth
+\ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
+\fi
     \end{sloppypar}
     \stepcounter{seccoun}
 }
@@ -117,14 +135,20 @@
 % General text
 \NewDocumentCommand{\addtext}{ m m }{%
   \begin{sloppypar}  % To prevent overfull lines
+\ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
+\fi
         #1
+\ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
+\fi
         #2
+\ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
+\fi
   \end{sloppypar}
 }
 
@@ -200,18 +224,24 @@
 \NewDocumentCommand{\addclause}{ m m m m m }{%
 \refstepcounter{clausecount} % Increase the clausecont counter
   \begin{sloppypar}  % To prevent overfull lines
+\ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
+\fi
         \begin{itemize}
           \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
         \end{itemize}
+\ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
+\fi
         \begin{itemize}
           \item[\bfseries\theclausecount] \textbf{#3} \\ #5
         \end{itemize}
+\ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
+\fi
   \end{sloppypar}
 }
 
@@ -219,18 +249,24 @@
 \NewDocumentCommand{\addsubclause}{ m m m m m }{%
 \refstepcounter{subclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
+\ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
+\fi
         \begin{itemize}
           \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
         \end{itemize}
+\ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
+\fi
         \begin{itemize}
           \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
         \end{itemize}
+\ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
+\fi
   \end{sloppypar}
 }
 
@@ -238,18 +274,24 @@
 \NewDocumentCommand{\addsubsubclause}{ m m m m m }{%
 \refstepcounter{subsubclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
+\ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
+\fi
         \begin{itemize}
           \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
         \end{itemize}
+\ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
+\fi
         \begin{itemize}
           \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
         \end{itemize}
+\ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
+\fi
   \end{sloppypar}
 }
 

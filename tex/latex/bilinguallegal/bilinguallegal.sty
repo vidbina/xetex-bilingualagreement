@@ -9,10 +9,22 @@
   \Outlineinblockstrue
 }
 
+\newif\ifDisplayLeft
+\DisplayLefttrue
+\DeclareOption{noleft}{
+  \DisplayLeftfalse
+}
+
+\newif\ifDisplayRight
+\DisplayRighttrue
+\DeclareOption{noright}{
+  \DisplayRightfalse
+}
+
 \def\BilingualAgreementLangDelimiter{ ---\ }
 
 \newif\ifDisplaySideBySide
-\DisplaySideBySidefalse
+\DisplaySideBySidetrue
 \DeclareOption{single}{
   \DisplaySideBySidefalse
 }
@@ -89,7 +101,16 @@
     \end{paracol}
 \else%
         \begin{center}
-          \LARGE\bfseries#1\BilingualAgreementLangDelimiter #2\label{thetitle}
+          \LARGE\bfseries
+          \ifDisplayLeft%
+          #1
+          \fi
+
+          \ifDisplayRight%
+            \ifDisplayLeft\BilingualAgreementLangDelimiter\fi
+          #2
+          \fi
+          \label{thetitle}
         \end{center}
 \fi
     \end{sloppypar}

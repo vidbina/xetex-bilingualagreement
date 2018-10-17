@@ -45,38 +45,6 @@
 \renewcommand{\thesubclausecount}{\theclausecount.\arabic{subclausecount}}
 \renewcommand{\thesubsubclausecount}{\thesubclausecount.\arabic{subsubclausecount}}
 
-% Section
-\newcounter{seccoun} % Counter for sections
-\setcounter{seccoun}{1}
-\NewDocumentCommand{\addsection}{ m m m }{%
-    \begin{sloppypar}  % To prevent overfull lines
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-        \toftagthis{d}
-\ifOutlineinblocks%
-        \section{#2}\label{#1}
-\else%
-        \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
-\fi
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-        \toftagthis{e}
-        \hypersetup{bookmarksdepth=-2}
-        \section{#3}
-\ifOutlineinblocks%
-        \IfStrEq{\getpagerefnumber{#1}}{0}{}{
-        \BookmarkAtEnd{%
-    	\expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
-    	}}
-\else%
-\fi
-        \hypersetup{bookmarksdepth}% back to tocdepth
-      \end{rightcolumn}
-    \end{paracol}
-    \end{sloppypar}
-    \stepcounter{seccoun}
-}
-
 % Title
 \NewDocumentCommand{\addtitle}{ m m }{%
     \begin{sloppypar}  % To prevent overfull lines
@@ -103,15 +71,47 @@
   \ifOutlineinblocks%
         \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
         \BookmarkAtEnd{%
-    	\bookmarksetup{startatroot}%
-    	\expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
-    	}}
+        \bookmarksetup{startatroot}%
+        \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
+    }}
   \else%
   \fi
       \end{rightcolumn}
     \end{paracol}
     \end{sloppypar}
     \medskip
+}
+
+% Section
+\newcounter{seccoun} % Counter for sections
+\setcounter{seccoun}{1}
+\NewDocumentCommand{\addsection}{ m m m }{%
+    \begin{sloppypar}  % To prevent overfull lines
+    \begin{paracol}{2} % specify two columns...
+      \begin{leftcolumn*}
+        \toftagthis{d}
+\ifOutlineinblocks%
+        \section{#2}\label{#1}
+\else%
+        \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
+\fi
+      \end{leftcolumn*}
+      \begin{rightcolumn}
+        \toftagthis{e}
+        \hypersetup{bookmarksdepth=-2}
+        \section{#3}
+\ifOutlineinblocks%
+        \IfStrEq{\getpagerefnumber{#1}}{0}{}{
+        \BookmarkAtEnd{%
+    \expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
+    }}
+\else%
+\fi
+        \hypersetup{bookmarksdepth}% back to tocdepth
+      \end{rightcolumn}
+    \end{paracol}
+    \end{sloppypar}
+    \stepcounter{seccoun}
 }
 
 % General text
@@ -234,7 +234,7 @@
   \end{sloppypar}
 }
 
-% Adds a subsubclause 
+% Adds a subsubclause
 \NewDocumentCommand{\addsubsubclause}{ m m m m m }{%
 \refstepcounter{subsubclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
@@ -300,7 +300,7 @@
 
 % New command to list annexes
 \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-	\global\stepcounter{annex}\textbf{\theannex.}&\textbf{#3} & #1 && \textbf{\theannex.}&\textbf{#4} & #2 \\
+  \global\stepcounter{annex}\textbf{\theannex.}&\textbf{#3} & #1 && \textbf{\theannex.}&\textbf{#4} & #2 \\
 }
 
 % bilinguallegal environment

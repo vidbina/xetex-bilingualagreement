@@ -46,96 +46,72 @@
 \renewcommand{\thesubsubclausecount}{\thesubclausecount.\arabic{subsubclausecount}}
 
 % Section
-\ifOutlineinblocks%
-  \newcounter{seccoun} % Counter for sections
-  \setcounter{seccoun}{1}
-  \newcommand{\addsection}[3]{%
+\newcounter{seccoun} % Counter for sections
+\setcounter{seccoun}{1}
+\newcommand{\addsection}[3]{%
     \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
         \toftagthis{d}
+\ifOutlineinblocks%
         \section{#2}\label{#1}
+\else%
+        \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
+\fi
       \end{leftcolumn*}
       \begin{rightcolumn}
         \toftagthis{e}
         \hypersetup{bookmarksdepth=-2}
         \section{#3}
+\ifOutlineinblocks%
         \IfStrEq{\getpagerefnumber{#1}}{0}{}{
         \BookmarkAtEnd{%
     	\expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
     	}}
-        \hypersetup{bookmarksdepth}% back to tocdepth
-      \end{rightcolumn}
-    \end{paracol}
-    \end{sloppypar}
-    \stepcounter{seccoun}
-  }
 \else%
-  \newcounter{seccoun} % Counter for sections
-  \setcounter{seccoun}{1}
-  \newcommand{\addsection}[3]{%
-    \begin{sloppypar}  % To prevent overfull lines
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-        \toftagthis{d}
-        \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-        \toftagthis{e}
-        \hypersetup{bookmarksdepth=-2}
-        \section{#3}
+\fi
         \hypersetup{bookmarksdepth}% back to tocdepth
       \end{rightcolumn}
     \end{paracol}
     \end{sloppypar}
     \stepcounter{seccoun}
-  }
-\fi
+}
 
 % Title
 \newcommand{\addtitle}[2]{%
-  \ifOutlineinblocks%
     \begin{sloppypar}  % To prevent overfull lines
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
         \begin{center}
           \LARGE\bfseries#1\label{thetitle}
+  \ifOutlineinblocks%
+          \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
+          \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #1 --- #2}%
+          }
+  \else%
+  \fi
         \end{center}
+  \ifOutlineinblocks%
         \bookmark[page=1, level=-1]{\bfseries #1}
+  \else%
+  \fi
       \end{leftcolumn*}
       \begin{rightcolumn}
         \begin{center}
           \LARGE\bfseries#2
         \end{center}
+  \ifOutlineinblocks%
         \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
         \BookmarkAtEnd{%
     	\bookmarksetup{startatroot}%
     	\expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
     	}}
-      \end{rightcolumn}
-    \end{paracol}
-    \end{sloppypar}
-    \medskip
   \else%
-    \begin{sloppypar}  % To prevent overfull lines
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-        \begin{center}
-          \LARGE\bfseries#1\label{thetitle}
-          \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
-          \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #1 --- #2}%
-          }
-        \end{center}
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-        \begin{center}
-          \LARGE\bfseries#2
-        \end{center}
+  \fi
       \end{rightcolumn}
     \end{paracol}
     \end{sloppypar}
     \medskip
-  \fi
 }
 
 % General text

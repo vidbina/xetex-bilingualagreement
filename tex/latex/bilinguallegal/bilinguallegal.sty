@@ -162,12 +162,12 @@
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
 \fi
-        #1
+        \ifDisplayLeft#1\fi
 \ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
 \fi
-        #2
+        \ifDisplayRight#2\fi
 \ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
@@ -251,16 +251,16 @@
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
 \fi
-        \begin{itemize}
+        \ifDisplayLeft\begin{itemize}
           \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
-        \end{itemize}
+        \end{itemize}\fi
 \ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
 \fi
-        \begin{itemize}
+        \ifDisplayRight\begin{itemize}
           \item[\bfseries\theclausecount] \textbf{#3} \\ #5
-        \end{itemize}
+        \end{itemize}\fi
 \ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
@@ -276,16 +276,16 @@
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
 \fi
-        \begin{itemize}
+        \ifDisplayLeft\begin{itemize}
           \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
-        \end{itemize}
+        \end{itemize}\fi
 \ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
 \fi
-        \begin{itemize}
+        \ifDisplayRight\begin{itemize}
           \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
-        \end{itemize}
+        \end{itemize}\fi
 \ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
@@ -301,16 +301,16 @@
     \begin{paracol}{2} % specify two columns...
       \begin{leftcolumn*}
 \fi
-        \begin{itemize}
+        \ifDisplayLeft\begin{itemize}
           \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
-        \end{itemize}
+        \end{itemize}\fi
 \ifDisplaySideBySide%
       \end{leftcolumn*}
       \begin{rightcolumn}
 \fi
-        \begin{itemize}
+        \ifDisplayRight\begin{itemize}
           \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
-        \end{itemize}
+        \end{itemize}\fi
 \ifDisplaySideBySide%
       \end{rightcolumn}
     \end{paracol}
@@ -332,15 +332,25 @@
     \centerline{\large\textbf{#2}}
   }
 
+  \ifDisplaySideBySide
   \begin{minipage}[t]{0.47\textwidth}
+  \fi
+    \ifDisplayLeft
     \fontsize{8}{12}
     \tableof{d}
+    \fi
+  \ifDisplaySideBySide
   \end{minipage}%
   \hspace*{0.03\textwidth}%
   \begin{minipage}[t]{0.48\textwidth}
+  \fi
+    \ifDisplayRight
     \fontsize{8}{12}
     \tableof{e}
+    \fi
+  \ifDisplaySideBySide
   \end{minipage}%
+  \fi
 }
 
 % An environment to list Annexes
@@ -349,24 +359,62 @@
   \global\newcounter{annex}
   \global\setcounter{annex}{0}
   \footnotesize
+  \ifDisplaySideBySide
   \begin{minipage}{0.5\linewidth}
-  \centerline{\bfseries\large #1}
+  \fi
+  \ifDisplayLeft\centerline{\bfseries\large #1}\fi
+  \ifDisplaySideBySide
   \end{minipage}%
   \begin{minipage}{0.5\linewidth}
-  \centerline{\bfseries\large #2}
+  \fi
+  \ifDisplayRight\centerline{\bfseries\large #2}\fi
+  \ifDisplaySideBySide
   \end{minipage}
+  \fi
   \par
   \smallskip
-    \begin{tabular}{l@{\hskip 3pt}l@{\hskip 4pt}p{#3}p{#4}l@{\hskip 3pt}l@{\hskip 4pt}p{#5}}
+    \ifDisplaySideBySide%
+    \begin{tabular}{%
+      l@{\hskip 3pt}
+      l@{\hskip 4pt}
+      p{#3}
+      p{#4}
+      l@{\hskip 3pt}
+      l@{\hskip 4pt}
+      p{#5}
+    }
+    \else%
+    \begin{tabular}{%
+      l@{\hskip 3pt}
+      l@{\hskip 4pt}
+      p{#3}
+    }
+    \fi
 }{%
   \end{tabular}
   \setcounter{annex}{0}
 }
 
 % New command to list annexes
-\NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-  \global\stepcounter{annex}\textbf{\theannex.}&\textbf{#3} & #1 && \textbf{\theannex.}&\textbf{#4} & #2 \\
-}
+\ifDisplaySideBySide%
+  \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+    \global\stepcounter{annex}%
+      \textbf{\theannex.} & \textbf{#3} & #1 &&
+      \textbf{\theannex.} & \textbf{#4} & #2 \\
+  }
+\else%
+  \ifDisplayLeft%
+    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \global\stepcounter{annex}%
+      \textbf{\theannex.} & \textbf{#3} & #1 \\
+    }
+  \else
+    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \global\stepcounter{annex}%
+      \textbf{\theannex.} & \textbf{#4} & #2 \\
+    }
+  \fi
+\fi
 
 % bilinguallegal environment
 \NewDocumentEnvironment{legal}{O{0.5}}{%

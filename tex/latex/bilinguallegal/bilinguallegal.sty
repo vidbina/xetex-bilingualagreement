@@ -66,7 +66,7 @@
 \renewcommand{\thesubsubclausecount}{\thesubclausecount.\arabic{subsubclausecount}}
 
 % Title
-\NewDocumentCommand{\addtitle}{ m m }{%
+\NewDocumentCommand{\addtitle}{ +m +m }{%
     \begin{sloppypar}  % To prevent overfull lines
 \ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
@@ -120,7 +120,7 @@
 % Section
 \newcounter{seccoun} % Counter for sections
 \setcounter{seccoun}{1}
-\NewDocumentCommand{\addsection}{ m m m }{%
+\NewDocumentCommand{\addsection}{ m +m +m }{%
     \begin{sloppypar}  % To prevent overfull lines
 \ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
@@ -156,7 +156,7 @@
 }
 
 % General text
-\NewDocumentCommand{\addtext}{ m m }{%
+\NewDocumentCommand{\addtext}{ +m +m }{%
   \begin{sloppypar}  % To prevent overfull lines
 \ifDisplaySideBySide%
     \begin{paracol}{2} % specify two columns...
@@ -244,7 +244,7 @@
 }
 
 % Clause
-\NewDocumentCommand{\addclause}{ m m m m m }{%
+\NewDocumentCommand{\addclause}{ m m m +m +m }{%
 \refstepcounter{clausecount} % Increase the clausecont counter
   \begin{sloppypar}  % To prevent overfull lines
 \ifDisplaySideBySide%
@@ -269,7 +269,7 @@
 }
 
 % Adds a subclause
-\NewDocumentCommand{\addsubclause}{ m m m m m }{%
+\NewDocumentCommand{\addsubclause}{ m m m +m +m }{%
 \refstepcounter{subclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
 \ifDisplaySideBySide%
@@ -294,7 +294,7 @@
 }
 
 % Adds a subsubclause
-\NewDocumentCommand{\addsubsubclause}{ m m m m m }{%
+\NewDocumentCommand{\addsubsubclause}{ m m m +m +m }{%
 \refstepcounter{subsubclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
 \ifDisplaySideBySide%

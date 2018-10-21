@@ -178,14 +178,18 @@
       \end{sloppypar}
       \stepcounter{seccoun}
     \fi%
-  \else%
+  \else% DisplaySideBySide
     \begin{sloppypar}  % To prevent overfull lines
       \toftagthis{d}
       \ifOutlineinblocks%
         \ifDisplayLeft\section{#2}\else\section{#3}\fi
       \else%
         \section{\texorpdfstring{#2}{%
-          #2\BilingualAgreementLangDelimiter #3
+          \ifDisplayLeft%
+            #2\BilingualAgreementLangDelimiter #3
+          \else%
+            #3\BilingualAgreementLangDelimiter #2
+          \fi
         }}
       \fi
       \label{#1}
@@ -194,9 +198,10 @@
       \ifOutlineinblocks%
         \IfStrEq{\getpagerefnumber{#1}}{0}{}{
         \BookmarkAtEnd{%
-        \expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
+        \expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{%
+          \ifDisplayLeft #2\else #3\fi
+        }%
       }}
-      \else%
       \fi
       \hypersetup{bookmarksdepth}% back to tocdepth
     \end{sloppypar}
@@ -210,20 +215,16 @@
     \begin{sloppypar}  % To prevent overfull lines
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
-          #1
+          \ifDisplayLeft #1\else #2\fi
         \end{leftcolumn*}
         \begin{rightcolumn}
-          #2
+          \ifDisplayLeft #2\else #1\fi
         \end{rightcolumn}
       \end{paracol}
     \end{sloppypar}
   \else%
     \begin{sloppypar}  % To prevent overfull lines
-      \ifDisplayLeft%
-        #1
-      \else%
-        #2
-      \fi
+      \ifDisplayLeft #1\else #2\fi
     \end{sloppypar}
   \fi
 }% end addtext
@@ -232,7 +233,11 @@
   \begin{figure}[htb]
     \centering
     \resizebox{1\textwidth}{!}{#1}
-    \caption{#2\BilingualAgreementLangDelimiter #3}
+    \ifDisplayLeft%
+      \caption{#2\BilingualAgreementLangDelimiter #3}
+    \else%
+      \caption{#3\BilingualAgreementLangDelimiter #2}
+    \fi
   \end{figure}
 }% end addfigure
 
@@ -310,9 +315,9 @@
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
-            \ifDisplayLeft
+            \ifDisplayLeft%
               \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
-            \else
+            \else%
               \item[\bfseries\thesubclausecount\label{#1}] \textbf{#3} \\ #5
             \fi
           \end{itemize}
@@ -348,27 +353,27 @@
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
-            \ifDisplayLeft
+            \ifDisplayLeft%
               \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
-            \else
+            \else%
               \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
             \fi
           \end{itemize}
         \end{leftcolumn*}
         \begin{rightcolumn}
           \begin{itemize}
-            \ifDisplayLeft
+            \ifDisplayLeft%
               \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
-            \else
+            \else%
               \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
             \fi
           \end{itemize}
         \end{rightcolumn}
       \end{paracol}
     \else%
-      \ifDisplayLeft
+      \ifDisplayLeft%
         \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
-      \else
+      \else%
         \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
       \fi
     \fi
@@ -392,21 +397,21 @@
   \ifDisplaySideBySide%
     \begin{minipage}[t]{0.47\textwidth}
       \fontsize{8}{12}
-      \tableof{d}
+      \ifDisplayLeft\tableof{d}\else\tableof{e}\fi
     \end{minipage}%
     \hspace*{0.03\textwidth}%
     \begin{minipage}[t]{0.48\textwidth}
       \fontsize{8}{12}
-      \tableof{e}
+      \ifDisplayLeft\tableof{e}\else\tableof{d}\fi
     \end{minipage}%
-  \else%
+  \else% DisplaySideBySide
     \fontsize{8}{12}
     \ifDisplayLeft%
       \tableof{d}
     \else%
       \tableof{e}
     \fi
-  \fi
+  \fi% DisplaySideBySide
 }% end insertTOC
 
 % An environment to list Annexes
@@ -418,18 +423,24 @@
 
   \ifDisplaySideBySide%
     \begin{minipage}{0.5\linewidth}
-      \centerline{\bfseries\large #1}
+      \centerline{%
+        \bfseries\large
+        \ifDisplayLeft #1\else #2\fi
+      }
     \end{minipage}%
     \begin{minipage}{0.5\linewidth}
-      \centerline{\bfseries\large #2}
+      \centerline{%
+        \bfseries\large
+        \ifDisplayLeft #2\else #1\fi
+      }
     \end{minipage}
-  \else%
+  \else% DisplaySideBySide
     \ifDisplayLeft%
       \centerline{\bfseries\large #1}
     \else%
       \centerline{\bfseries\large #2}
     \fi
-  \fi
+  \fi% DisplaySideBySide
 
   \par
   \smallskip
@@ -456,20 +467,27 @@
   \setcounter{annex}{0}
 }
 
-% New command to list annexes
-\NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-  \global\stepcounter{annex}%
-  \ifDisplaySideBySide%
-    \textbf{\theannex.} & \textbf{#3} & #1 &&
-    \textbf{\theannex.} & \textbf{#4} & #2 \\
+\ifDisplaySideBySide%
+  \ifDisplayLeft%
+    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \textbf{\theannex.} & \textbf{#3} & #1 & &
+      \textbf{\theannex.} & \textbf{#4} & #2 \\
+    }
   \else%
+    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \textbf{\theannex.} & \textbf{#4} & #2 & &
+      \textbf{\theannex.} & \textbf{#3} & #1 \\
+    }
+  \fi%
+\else%
+  \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
     \ifDisplayLeft%
       \textbf{\theannex.} & \textbf{#3} & #1 \\
     \else%
       \textbf{\theannex.} & \textbf{#4} & #2 \\
     \fi
-  \fi
-}
+  }
+\fi
 
 % bilinguallegal environment
 \NewDocumentEnvironment{legal}{O{0.5}}{%

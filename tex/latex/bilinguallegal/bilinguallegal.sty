@@ -64,53 +64,69 @@
 
 % Title
 \NewDocumentCommand{\addtitle}{ +m +m }{%
-    \begin{sloppypar}  % To prevent overfull lines
-\ifDisplaySideBySide%
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-        \begin{center}
-          \LARGE\bfseries#1\label{thetitle}
-  \ifOutlineinblocks%
+  \begin{sloppypar}  % To prevent overfull lines
+
+  \ifDisplaySideBySide%
+    \ifOutlineinblocks%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{center}
+            \LARGE\bfseries#1\label{thetitle}
+            \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
+            \expandafter%
+            \bookmark[page=\getpagerefnumber{thetitle}, level=-1]{%
+              \bfseries #1\BilingualAgreementLangDelimiter #2}%
+            }
+          \end{center}
+          \bookmark[page=1, level=-1]{\bfseries #1}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{center}
+            \LARGE\bfseries#2
+          \end{center}
           \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
-          \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #1\BilingualAgreementLangDelimiter #2}%
+            \BookmarkAtEnd{%
+              \bookmarksetup{startatroot}%
+              \expandafter%
+              \bookmark[page=\getpagerefnumber{thetitle}, level=-1]{%
+                \bfseries #2
+              }%
+            }
           }
+        \end{rightcolumn}
+      \end{paracol}
+    \else%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{center}
+            \LARGE\bfseries#1\label{thetitle}
+          \end{center}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{center}
+            \LARGE\bfseries#2
+          \end{center}
+        \end{rightcolumn}
+      \end{paracol}
+    \fi%%%%
   \else%
+    \ifDisplayLeft%
+      \begin{center}
+        \LARGE\bfseries
+        #1
+        \label{thetitle}
+      \end{center}
+    \else%
+      \begin{center}
+        \LARGE\bfseries
+        #2
+        \label{thetitle}
+      \end{center}
+    \fi
   \fi
-        \end{center}
-  \ifOutlineinblocks%
-        \bookmark[page=1, level=-1]{\bfseries #1}
-  \else%
-  \fi
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-        \begin{center}
-          \LARGE\bfseries#2
-        \end{center}
-  \ifOutlineinblocks%
-        \IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
-        \BookmarkAtEnd{%
-        \bookmarksetup{startatroot}%
-        \expandafter\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{\bfseries #2}%
-    }}
-  \else%
-  \fi
-      \end{rightcolumn}
-    \end{paracol}
-\else%
-        \begin{center}
-          \LARGE\bfseries
-          \ifDisplayLeft%
-          #1
-          \else%
-            \ifDisplayLeft\BilingualAgreementLangDelimiter\fi
-          #2
-          \fi
-          \label{thetitle}
-        \end{center}
-\fi
-    \end{sloppypar}
-    \medskip
-}
+  \end{sloppypar}
+  \medskip
+}% end addtitle
 
 % Section
 \newcounter{seccoun} % Counter for sections
@@ -118,37 +134,41 @@
 
 \NewDocumentCommand{\addsection}{ m +m +m }{%
   \ifDisplaySideBySide%
-    \begin{sloppypar}  % To prevent overfull lines
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-        \toftagthis{d}
-        \ifOutlineinblocks%
-          \section{%
-            \ifDisplayLeft\section{#2}\else\section{#3}\fi
-          }
-        \else%
-          \section{\texorpdfstring{%
-            \ifDisplayLeft\section{#2}\else\section{#3}\fi
-          }{#2\BilingualAgreementLangDelimiter #3}}
-        \fi
-        \label{#1}
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-        \toftagthis{e}
-        \hypersetup{bookmarksdepth=-2}
-        \section{#3}
-        \ifOutlineinblocks%
-          \IfStrEq{\getpagerefnumber{#1}}{0}{}{
-          \BookmarkAtEnd{%
-            \expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
-          }}
-          \else%
-          \fi
-          \hypersetup{bookmarksdepth}% back to tocdepth
-        \end{rightcolumn}
-      \end{paracol}
-    \end{sloppypar}
-    \stepcounter{seccoun}
+    \ifOutlineinblocks%
+      \newcounter{seccoun}% Counter for sections
+      \setcounter{seccoun}{1}%
+      \begin{sloppypar}  % To prevent overfull lines
+        \begin{paracol}{2} % specify two columns...
+          \begin{leftcolumn*}
+            \toftagthis{d}
+            \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
+          \end{leftcolumn*}
+          \begin{rightcolumn}
+            \toftagthis{e}
+            \hypersetup{bookmarksdepth=-2}
+            \section{#3}
+            \hypersetup{bookmarksdepth}% back to tocdepth
+          \end{rightcolumn}
+        \end{paracol}
+      \end{sloppypar}
+      \stepcounter{seccoun}
+    \else%
+      \begin{sloppypar}  % To prevent overfull lines
+        \begin{paracol}{2} % specify two columns...
+          \begin{leftcolumn*}
+            \toftagthis{d}
+            \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
+          \end{leftcolumn*}
+          \begin{rightcolumn}
+            \toftagthis{e}
+            \hypersetup{bookmarksdepth=-2}
+            \section{#3}
+            \hypersetup{bookmarksdepth}% back to tocdepth
+          \end{rightcolumn}
+        \end{paracol}
+      \end{sloppypar}
+      \stepcounter{seccoun}
+    \fi%
   \else%
     \begin{sloppypar}  % To prevent overfull lines
       \toftagthis{d}
@@ -173,27 +193,31 @@
     \end{sloppypar}
     \stepcounter{seccoun}
   \fi
-}
+}% end addsection
 
 % General text
 \NewDocumentCommand{\addtext}{ +m +m }{%
-  \begin{sloppypar}  % To prevent overfull lines
-\ifDisplaySideBySide%
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-\fi
-        \ifDisplayLeft#1\fi
-\ifDisplaySideBySide%
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-\fi
-        \ifDisplayLeft\else #2\fi
-\ifDisplaySideBySide%
-      \end{rightcolumn}
-    \end{paracol}
-\fi
-  \end{sloppypar}
-}
+  \ifDisplaySideBySide%
+    \begin{sloppypar}  % To prevent overfull lines
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          #1
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          #2
+        \end{rightcolumn}
+      \end{paracol}
+    \end{sloppypar}
+  \else%
+    \begin{sloppypar}  % To prevent overfull lines
+      \ifDisplayLeft%
+        #1
+      \else%
+        #2
+      \fi
+    \end{sloppypar}
+  \fi
+}% end addtext
 
 \NewDocumentCommand{\addfigure}{ m m m }{%
   \begin{figure}[htb]
@@ -201,7 +225,7 @@
     \resizebox{1\textwidth}{!}{#1}
     \caption{#2\BilingualAgreementLangDelimiter #3}
   \end{figure}
-}
+}% end addfigure
 
 % Signature section
 % TODO remove harcoded labels
@@ -230,113 +254,117 @@
       \\\hline
     \end{tabular}
   \end{center}
-}
-
-% Intro section
-\newcommand{\addintro}[8]{%
-  #1
-  \par\medskip
-  {\bfseries\AgreementCustomerName,}
-
-  \par#2
-
-  \par
-  \begin{flushright}
-  \bfseries\textendash{} ``#3'' \textendash{}
-  \end{flushright}
-
-  \par
-  \noindent #4
-  \medskip\par
-
-  \medskip\par
-  {\bfseries \AgreementSupplierName,}
-
-  \par#5
-
-  \begin{flushright}
-    \bfseries\textendash{} ``#6'' \textendash{}
-  \end{flushright}
-
-  \medskip\par#7
-
-  \medskip\par#8
-}
+}% end addsigsection
 
 % Clause
 \NewDocumentCommand{\addclause}{ m m m +m +m }{%
-\refstepcounter{clausecount} % Increase the clausecont counter
+  \refstepcounter{clausecount} % Increase the clausecont counter
   \begin{sloppypar}  % To prevent overfull lines
-\ifDisplaySideBySide%
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-\fi
-        \ifDisplayLeft\begin{itemize}
-          \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
-        \end{itemize}\fi
-\ifDisplaySideBySide%
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-\fi
-        \ifDisplayLeft\else\begin{itemize}
+    \ifDisplaySideBySide%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{itemize}
+            \ifDisplayLeft
+              \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
+            \else
+              \item[\bfseries\theclausecount\label{#1}] \textbf{#3} \\ #5
+            \fi
+          \end{itemize}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{itemize}
+            \ifDisplayLeft%
+              \item[\bfseries\theclausecount] \textbf{#3} \\ #5
+            \else%
+              \item[\bfseries\theclausecount] \textbf{#2} \\ #4
+            \fi
+          \end{itemize}
+        \end{rightcolumn}
+      \end{paracol}
+    \else% single-col
+      \begin{itemize}
+        \ifDisplayLeft%
+          \item[\bfseries\theclausecount] \textbf{#2} \\ #4
+        \else%
           \item[\bfseries\theclausecount] \textbf{#3} \\ #5
-        \end{itemize}\fi
-\ifDisplaySideBySide%
-      \end{rightcolumn}
-    \end{paracol}
-\fi
+        \fi
+      \end{itemize}
+    \fi
   \end{sloppypar}
-}
+}% end add clause
 
 % Adds a subclause
 \NewDocumentCommand{\addsubclause}{ m m m +m +m }{%
-\refstepcounter{subclausecount} % Increase the subclausecont counter
+  \refstepcounter{subclausecount} % Increase the subclausecont counter
   \begin{sloppypar}  % To prevent overfull lines
-\ifDisplaySideBySide%
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-\fi
-        \ifDisplayLeft\begin{itemize}
-          \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
-        \end{itemize}\fi
-\ifDisplaySideBySide%
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-\fi
-        \ifDisplayLeft\else\begin{itemize}
-          \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
-        \end{itemize}\fi
-\ifDisplaySideBySide%
-      \end{rightcolumn}
-    \end{paracol}
-\fi
+    \ifDisplaySideBySide%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{itemize}
+            \ifDisplayLeft
+              \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
+            \else
+              \item[\bfseries\thesubclausecount\label{#1}] \textbf{#3} \\ #5
+            \fi
+          \end{itemize}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{itemize}
+            \ifDisplayLeft%
+              \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
+            \else%
+              \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
+            \fi
+          \end{itemize}
+        \end{rightcolumn}
+      \end{paracol}
+    \else%
+      \begin{itemize}
+        \ifDisplayLeft%
+          \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
+        \else%
+           \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
+        \fi
+      \end{itemize}
+    \fi
   \end{sloppypar}
-}
+}% end addsubclause
 
 % Adds a subsubclause
 \NewDocumentCommand{\addsubsubclause}{ m m m +m +m }{%
-\refstepcounter{subsubclausecount} % Increase the subclausecont counter
+  \refstepcounter{subsubclausecount} % Increase the subclausecont counter
+
   \begin{sloppypar}  % To prevent overfull lines
-\ifDisplaySideBySide%
-    \begin{paracol}{2} % specify two columns...
-      \begin{leftcolumn*}
-\fi
-        \ifDisplayLeft\begin{itemize}
-          \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
-        \end{itemize}\fi
-\ifDisplaySideBySide%
-      \end{leftcolumn*}
-      \begin{rightcolumn}
-\fi
-        \ifDisplayLeft\else\begin{itemize}
-          \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
-        \end{itemize}\fi
-\ifDisplaySideBySide%
-      \end{rightcolumn}
-    \end{paracol}
-\fi
+    \ifDisplaySideBySide%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{itemize}
+            \ifDisplayLeft
+              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+            \else
+              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+            \fi
+          \end{itemize}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{itemize}
+            \ifDisplayLeft
+              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+            \else
+              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+            \fi
+          \end{itemize}
+        \end{rightcolumn}
+      \end{paracol}
+    \else%
+      \ifDisplayLeft
+        \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+      \else
+        \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+      \fi
+    \fi
   \end{sloppypar}
-}
+}% end addsubsubclause
 
 % NOTE: all the sections inserted through the \addsection command will appear
 % in the TOC's
@@ -352,26 +380,25 @@
     \centerline{\large\textbf{#2}}
   }
 
-  \ifDisplaySideBySide
-  \begin{minipage}[t]{0.47\textwidth}
-  \fi
-    \ifDisplayLeft
+  \ifDisplaySideBySide%
+    \begin{minipage}[t]{0.47\textwidth}
+      \fontsize{8}{12}
+      \tableof{d}
+    \end{minipage}%
+    \hspace*{0.03\textwidth}%
+    \begin{minipage}[t]{0.48\textwidth}
+      \fontsize{8}{12}
+      \tableof{e}
+    \end{minipage}%
+  \else%
     \fontsize{8}{12}
-    \tableof{d}
+    \ifDisplayLeft%
+      \tableof{d}
+    \else%
+      \tableof{e}
     \fi
-  \ifDisplaySideBySide
-  \end{minipage}%
-  \hspace*{0.03\textwidth}%
-  \begin{minipage}[t]{0.48\textwidth}
   \fi
-    \ifDisplayLeft\else
-    \fontsize{8}{12}
-    \tableof{e}
-    \fi
-  \ifDisplaySideBySide
-  \end{minipage}%
-  \fi
-}
+}% end insertTOC
 
 % An environment to list Annexes
 \NewDocumentEnvironment{listAnnexes}{m m O{0.32\linewidth} O{0.05\linewidth} O{0.32\linewidth}}{%
@@ -379,21 +406,26 @@
   \global\newcounter{annex}
   \global\setcounter{annex}{0}
   \footnotesize
-  \ifDisplaySideBySide
-  \begin{minipage}{0.5\linewidth}
+
+  \ifDisplaySideBySide%
+    \begin{minipage}{0.5\linewidth}
+      \centerline{\bfseries\large #1}
+    \end{minipage}%
+    \begin{minipage}{0.5\linewidth}
+      \centerline{\bfseries\large #2}
+    \end{minipage}
+  \else%
+    \ifDisplayLeft%
+      \centerline{\bfseries\large #1}
+    \else%
+      \centerline{\bfseries\large #2}
+    \fi
   \fi
-  \ifDisplayLeft\centerline{\bfseries\large #1}\fi
-  \ifDisplaySideBySide
-  \end{minipage}%
-  \begin{minipage}{0.5\linewidth}
-  \fi
-  \ifDisplayLeft\else\centerline{\bfseries\large #2}\fi
-  \ifDisplaySideBySide
-  \end{minipage}
-  \fi
+
   \par
   \smallskip
-    \ifDisplaySideBySide%
+
+  \ifDisplaySideBySide%
     \begin{tabular}{%
       l@{\hskip 3pt}
       l@{\hskip 4pt}
@@ -403,38 +435,32 @@
       l@{\hskip 4pt}
       p{#5}
     }
-    \else%
+  \else%
     \begin{tabular}{%
       l@{\hskip 3pt}
       l@{\hskip 4pt}
       p{#3}
     }
-    \fi
+  \fi
 }{%
   \end{tabular}
   \setcounter{annex}{0}
 }
 
 % New command to list annexes
-\ifDisplaySideBySide%
-  \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-    \global\stepcounter{annex}%
-      \textbf{\theannex.} & \textbf{#3} & #1 &&
-      \textbf{\theannex.} & \textbf{#4} & #2 \\
-  }
-\else%
-  \ifDisplayLeft%
-    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-      \global\stepcounter{annex}%
+\NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+  \global\stepcounter{annex}%
+  \ifDisplaySideBySide%
+    \textbf{\theannex.} & \textbf{#3} & #1 &&
+    \textbf{\theannex.} & \textbf{#4} & #2 \\
+  \else%
+    \ifDisplayLeft%
       \textbf{\theannex.} & \textbf{#3} & #1 \\
-    }
-  \else
-    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-      \global\stepcounter{annex}%
+    \else%
       \textbf{\theannex.} & \textbf{#4} & #2 \\
-    }
+    \fi
   \fi
-\fi
+}
 
 % bilinguallegal environment
 \NewDocumentEnvironment{legal}{O{0.5}}{%

@@ -303,7 +303,7 @@
           \end{itemize}
         \end{rightcolumn}
       \end{paracol}
-    \else% single-col
+    \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
           \item[\bfseries\theclausecount] \textbf{#2} \\ #4
@@ -340,7 +340,7 @@
           \end{itemize}
         \end{rightcolumn}
       \end{paracol}
-    \else%
+    \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
           \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
@@ -357,33 +357,35 @@
   \refstepcounter{subsubclausecount} % Increase the subclausecont counter
 
   \begin{sloppypar}  % To prevent overfull lines
+    \label{#1}
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft%
-              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+              \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
             \else%
-              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+              \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
         \end{leftcolumn*}
         \begin{rightcolumn}
           \begin{itemize}
             \ifDisplayLeft%
-              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+              \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
             \else%
-              \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+              \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
             \fi
           \end{itemize}
         \end{rightcolumn}
       \end{paracol}
-    \else%
+    \else% DisplaySideBySide
       \begin{itemize}
+        \item{hi}
         \ifDisplayLeft%
-          \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+          \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
         \else%
-          \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+          \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
         \fi
       \end{itemize}
     \fi
@@ -489,14 +491,16 @@
       \textbf{\theannex.} & \textbf{#3} & #1 \\
     }
   \fi%
-\else%
-  \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
-    \ifDisplayLeft%
+\else% DisplaySideBySide
+  \ifDisplayLeft%
+    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
       \textbf{\theannex.} & \textbf{#3} & #1 \\
-    \else%
+    }
+  \else%
+    \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
       \textbf{\theannex.} & \textbf{#4} & #2 \\
-    \fi
-  }
+    }
+  \fi
 \fi
 
 % bilinguallegal environment

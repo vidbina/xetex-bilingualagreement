@@ -163,7 +163,7 @@
         \end{paracol}
       \end{sloppypar}
       \stepcounter{seccoun}
-    \else%
+    \else% Outlineinblocks
       \begin{sloppypar}  % To prevent overfull lines
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
@@ -192,25 +192,15 @@
       \ifOutlineinblocks%
         \ifDisplayLeft\section{#2}\else\section{#3}\fi
       \else%
-        \section{\texorpdfstring{#2}{%
-          \ifDisplayLeft%
-            #2\BilingualAgreementLangDelimiter #3
-          \else%
-            #3\BilingualAgreementLangDelimiter #2
-          \fi
-        }}
+        \ifDisplayLeft%
+          \section{\texorpdfstring{#2}{#2}}
+        \else%
+          \section{\texorpdfstring{#3}{#3}}
+        \fi
       \fi
       \label{#1}
       \toftagthis{e}
       \hypersetup{bookmarksdepth=-2}
-      \ifOutlineinblocks%
-        \IfStrEq{\getpagerefnumber{#1}}{0}{}{
-        \BookmarkAtEnd{%
-        \expandafter\bookmark[page=\getpagerefnumber{#1}, level=1]{%
-          \ifDisplayLeft #2\else #3\fi
-        }%
-      }}
-      \fi
       \hypersetup{bookmarksdepth}% back to tocdepth
     \end{sloppypar}
     \stepcounter{seccoun}

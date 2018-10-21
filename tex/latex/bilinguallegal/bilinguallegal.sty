@@ -145,12 +145,14 @@
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
             \toftagthis{d}
-            \section{\texorpdfstring{#2}{#2}}
+            \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
+              \ifDisplayLeft #2\else #3\fi
+            }}
           \end{leftcolumn*}
           \begin{rightcolumn}
             \toftagthis{e}
             \hypersetup{bookmarksdepth=-2}
-            \section{#3}
+            \section{\ifDisplayLeft #3\else #2\fi}
             \IfStrEq{\getpagerefnumber{#1}}{0}{}{
               \BookmarkAtEnd{%
               \expandafter%
@@ -166,12 +168,18 @@
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
             \toftagthis{d}
-            \section{\texorpdfstring{#2}{#2 --- #3}}\label{#1}
+            \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
+              \ifDisplayLeft%
+                #2 --- #3
+              \else%
+                #3 --- #2
+              \fi
+            }}\label{#1}
           \end{leftcolumn*}
           \begin{rightcolumn}
             \toftagthis{e}
             \hypersetup{bookmarksdepth=-2}
-            \section{#3}
+            \section{\ifDisplayLeft #3\else #2\fi}
             \hypersetup{bookmarksdepth}% back to tocdepth
           \end{rightcolumn}
         \end{paracol}

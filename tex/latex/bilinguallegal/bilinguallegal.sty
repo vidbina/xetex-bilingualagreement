@@ -472,11 +472,13 @@
 \ifDisplaySideBySide%
   \ifDisplayLeft%
     \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \global\stepcounter{annex}%
       \textbf{\theannex.} & \textbf{#3} & #1 & &
       \textbf{\theannex.} & \textbf{#4} & #2 \\
     }
   \else%
     \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \global\stepcounter{annex}%
       \textbf{\theannex.} & \textbf{#4} & #2 & &
       \textbf{\theannex.} & \textbf{#3} & #1 \\
     }
@@ -484,10 +486,12 @@
 \else% DisplaySideBySide
   \ifDisplayLeft%
     \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \global\stepcounter{annex}%
       \textbf{\theannex.} & \textbf{#3} & #1 \\
     }
   \else%
     \NewDocumentCommand{\addAnnex}{m m O{Annex} O{Annex}}{%
+      \global\stepcounter{annex}%
       \textbf{\theannex.} & \textbf{#4} & #2 \\
     }
   \fi

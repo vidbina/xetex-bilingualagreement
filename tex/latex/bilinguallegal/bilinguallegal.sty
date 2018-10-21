@@ -379,11 +379,13 @@
         \end{rightcolumn}
       \end{paracol}
     \else%
-      \ifDisplayLeft%
-        \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
-      \else%
-        \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
-      \fi
+      \begin{itemize}
+        \ifDisplayLeft%
+          \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#2} \\ #4
+        \else%
+          \item[\bfseries\thesubsubclausecount\label{#1}] \textbf{#3} \\ #5
+        \fi
+      \end{itemize}
     \fi
   \end{sloppypar}
 }% end addsubsubclause

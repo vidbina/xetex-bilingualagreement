@@ -20,10 +20,12 @@ The package accepts a few options that allow for different layouts.
  - `single` activate a single column layout, the outline of a single column
    document is not affected by the `sectionedoutline` option.
 
-<img
-  src="doc/layouts.png"
-  alt="Different layouts based on the package options"
-  width="963" />
+<div style="text-align: center;">
+  <img
+    src="doc/layouts.png"
+    alt="Different layouts based on the package options"
+    width="642" />
+</div>
 
 The commands of this package have been defined to accept left and right
 arguments such that the left arguments accept the content for the default

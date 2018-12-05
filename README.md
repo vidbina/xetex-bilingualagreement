@@ -10,35 +10,13 @@ and Conditions.
 
 ## Usage
 
-The package accepts a few options that allow for different layouts.
+The commands of this package have been defined to accept values in pairs of
+arguments in which the left-hand left-hand member of a pair by default
+represent the primary language of the document whilst the right-hand member of
+a pair represent the secondary language.
 
-Observe the manner in which outline and page content are structured given the
-options.
-
- - `left` (default) or `right` indicates the main language. In a single-column
-   layout this indicates the language displayed, while in a 2-column layout
-   this indicates which language is displayed on the first i.e.: left column.
- - `sectionedoutline` activates an alternate layout for the tree displayed
-   in the outline pane of the PDF reader in use. In a 2-column layout, this
-   partitions the outline to provide separate root nodes for each language and
-   therefore effectively displays two blocks with their respective trees.
-   Without this option activated the outline is only a single tree with every
-   node of that tree containing the section heads of both languages, provided
-   that the 2-column layout is enabled.
- - `single` activate a single column layout, the outline of a single column
-   document is not affected by the `sectionedoutline` option.
-
-<img
-  src="doc/layouts.png"
-  alt="Different layouts based on the package options"
-  width="321" />
-
-The commands of this package have been defined to accept left and right
-arguments where left arguments represent the primary language of the document
-whilst the right arguments represent the secondary language.
-
-The snippet demonstrates how German and English content is passed to some of
-the commands provided by this package.
+The snippet below demonstrates how German and English content is passed to some
+of the commands provided by this package.
 
 ```tex
 \usepackage{latex/bilinguallegal/bilinguallegal}
@@ -82,8 +60,8 @@ the commands provided by this package.
 \end{document}
 ```
 
-Note that in some cases commands may take more than just two arguments for the
-different languages as in:
+Note that in some cases commands may take more than just a single pair of
+arguments for the different languages as in:
 
  - `\addsection{labelName}{leftTitle}{rightTitle}` where `labelName` is
    the label one may use in the text by means of the `ref{labelName}`
@@ -91,6 +69,29 @@ different languages as in:
  - `\addclause{labelName}{leftTitle}{rightTitle}{leftBody}{rightBody}`
    where separate pairs of arguments allow the specification of title and body
    text for the two languages.
+
+### Package Options
+
+The package accepts the following options in order to produce different
+layouts:
+
+ - `left` (default) or `right` indicates the main language. In a single-column
+   layout this indicates the language displayed, while in a 2-column layout
+   this indicates which language is displayed on the first, i.e. left, column.
+ - `sectionedoutline` activates an alternate layout for the tree displayed
+   in the outline pane of the PDF reader in use. In a 2-column layout, this
+   partitions the outline to provide separate root nodes for each language and
+   therefore effectively displays two blocks with their respective trees.
+   Without this option activated the outline is only a single tree with every
+   node of that tree containing the section heads of both languages, provided
+   that the 2-column layout is enabled.
+ - `single` activate a single column layout, the outline of a single column
+   document is not affected by the `sectionedoutline` option.
+
+<img
+  src="doc/layouts.png"
+  alt="Different layouts based on the package options"
+  width="321" />
 
 ## Examples
 

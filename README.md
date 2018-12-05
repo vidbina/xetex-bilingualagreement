@@ -1,11 +1,14 @@
-# Bilinguallegal
+# bilinguallegal ⚖️📑
 
-The `bilinguallegal` TeX package allow for the typesetting of bilingual legal
-documents such as Terms and Conditions.
+A TeX package for the typesetting of bilingual legal documents such as Terms
+and Conditions.
 
 ## Usage
 
 The package accepts a few options that allow for different layouts.
+
+Observe the manner in which outline and page content are structured given the
+options.
 
  - `left` (default) or `right` indicates the main language. In a single-column
    layout this indicates the language displayed, while in a 2-column layout
@@ -26,11 +29,10 @@ The package accepts a few options that allow for different layouts.
   width="321" />
 
 The commands of this package have been defined to accept left and right
-arguments such that the left arguments accept the content for the default
-language whilst the right arguments accept the content for the secondary
-language.
+arguments where left arguments represent the primary language of the document
+whilst the right arguments represent the secondary language.
 
-The following snippet demonstrates how German and English content is passed to
+The snippet demonstrates how German and English content is passed to some of
 the commands provided by this package.
 
 ```tex

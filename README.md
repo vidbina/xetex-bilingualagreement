@@ -4,7 +4,7 @@ A TeX package for the typesetting of bilingual legal documents such as Terms
 and Conditions.
 
 <img
-  src="doc/screenshot-gdpr-snippet.png"
+  src="doc/screenshot.gdpr-snippet.png"
   alt="A snippet of the GDPR text typeset with the bilinguallegal package"
   />
 

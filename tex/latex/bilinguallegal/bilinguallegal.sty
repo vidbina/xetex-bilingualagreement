@@ -248,21 +248,21 @@
     \renewcommand{\arraystretch}{1.2}
     \hspace*{0.75cm}
     \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}\hline
-      \bfseries\AgreementCustomerName&
-      \bfseries\AgreementSupplierName\\
+      \bfseries\AgreementOtherName&
+      \bfseries\AgreementSelfName\\
 
       \hline & \\[0.75cm] &\\\hline
 
-      \TextField[name=SignatoryName,charsize=8pt,value=\AgreementCustomerRepresentative,width=0.3\textwidth]{\textbf{Name/Name}: }&
-      \textbf{Name/Name}: \AgreementSupplierRepresentative
+      \TextField[name=SignatoryName,charsize=8pt,value=\AgreementOtherRepresentative,width=0.3\textwidth]{\textbf{Name/Name}: }&
+      \textbf{Name/Name}: \AgreementSelfRepresentative
       \\\hline
 
       \TextField[name=SignatoryTitle,charsize=8pt,width=0.3\textwidth]{\textbf{Titel/Title}: }&
-      \textbf{Titel/Title}: \AgreementSupplierTitle
+      \textbf{Titel/Title}: \AgreementSelfTitle
       \\\hline
 
       \TextField[name=SignedDate,charsize=8pt,width=0.3\textwidth]{\textbf{Datum/Date}: }&
-      \textbf{Datum/Date}: \AgreementSupplierDate
+      \textbf{Datum/Date}: \AgreementSelfDate
       \\\hline
     \end{tabular}
   \end{center}

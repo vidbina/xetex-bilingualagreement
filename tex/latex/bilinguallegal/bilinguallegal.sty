@@ -246,22 +246,85 @@
     \small
     \renewcommand{\arraystretch}{1.2}
     \hspace*{0.75cm}
+
+    \def\AgreementNameLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementNameLabelLeft\AgreementLabelDelimiter\AgreementNameLabelRight
+          \else
+            \AgreementNameLabelRight\AgreementLabelDelimiter\AgreementNameLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementNameLabelLeft
+          \else
+            \AgreementNameLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementTitleLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementTitleLabelLeft\AgreementLabelDelimiter\AgreementTitleLabelRight
+          \else
+            \AgreementTitleLabelRight\AgreementLabelDelimiter\AgreementTitleLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementTitleLabelLeft
+          \else
+            \AgreementTitleLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementDateLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementDateLabelLeft\AgreementLabelDelimiter\AgreementDateLabelRight
+          \else
+            \AgreementDateLabelRight\AgreementLabelDelimiter\AgreementDateLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementDateLabelLeft
+          \else
+            \AgreementDateLabelRight
+          \fi
+        \fi
+      }
+    }
+
     \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}\hline
       \bfseries\AgreementOtherName&
       \bfseries\AgreementSelfName\\
 
       \hline & \\[0.75cm] &\\\hline
 
-      \TextField[name=SignatoryName,charsize=8pt,value=\AgreementOtherRepresentative,width=0.3\textwidth]{\textbf{Name/Name}: }&
-      \textbf{Name/Name}: \AgreementSelfRepresentative
+      \TextField[%
+        name=SignatoryName,
+        charsize=8pt,
+        value=\AgreementOtherRepresentative,
+        width=0.3\textwidth
+      ]{%
+        \AgreementNameLabel :
+      }& \AgreementNameLabel : \AgreementSelfRepresentative
       \\\hline
 
-      \TextField[name=SignatoryTitle,charsize=8pt,width=0.3\textwidth]{\textbf{Titel/Title}: }&
-      \textbf{Titel/Title}: \AgreementSelfTitle
+      \TextField[name=SignatoryTitle,charsize=8pt,width=0.3\textwidth]{%
+        \AgreementTitleLabel :
+      }& \AgreementTitleLabel : \AgreementSelfTitle
       \\\hline
 
-      \TextField[name=SignedDate,charsize=8pt,width=0.3\textwidth]{\textbf{Datum/Date}: }&
-      \textbf{Datum/Date}: \AgreementSelfDate
+      \TextField[name=SignedDate,charsize=8pt,width=0.3\textwidth]{%
+        \AgreementDateLabel :
+      }& \AgreementDateLabel : \AgreementSelfDate
       \\\hline
     \end{tabular}
   \end{center}

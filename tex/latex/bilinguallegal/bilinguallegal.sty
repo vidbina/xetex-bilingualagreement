@@ -301,10 +301,9 @@
       }
     }
 
-    \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}\hline
-      \bfseries\AgreementOtherName&
-      \bfseries\AgreementSelfName\\
-
+    \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}
+      \hline
+      \bfseries\AgreementOtherName&\bfseries\AgreementSelfName\\
       \hline & \\[0.75cm] &\\\hline
 
       \TextField[%
@@ -317,7 +316,12 @@
       }& \AgreementNameLabel : \AgreementSelfRepresentative
       \\\hline
 
-      \TextField[name=SignatoryTitle,charsize=8pt,width=0.3\textwidth]{%
+      \TextField[
+        name=SignatoryTitle,
+        charsize=8pt,
+        value=\AgreementOtherTitle,
+        width=0.3\textwidth
+      ]{%
         \AgreementTitleLabel :
       }& \AgreementTitleLabel : \AgreementSelfTitle
       \\\hline

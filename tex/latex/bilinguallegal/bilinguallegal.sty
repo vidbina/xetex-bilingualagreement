@@ -33,8 +33,8 @@
 \RequirePackage{etoolbox}
 \RequirePackage{array}
 \RequirePackage{paracol}
-\RequirePackage{enumitem} % Extra support for itemize environments
 \RequirePackage{enumerate}
+\RequirePackage[shortlabels]{enumitem} % Extra support for itemize environments
 \RequirePackage{xparse}   % To define commands and environments
 \RequirePackage{xstring}  % To test when the pagenumbers are well defined
 
@@ -58,6 +58,7 @@
 \newcounter{clausecount}[section]
 \newcounter{subclausecount}[clausecount]
 \newcounter{subsubclausecount}[subclausecount]
+
 \renewcommand{\theclausecount}{\thesection.\arabic{clausecount}}
 \renewcommand{\thesubclausecount}{\theclausecount.\arabic{subclausecount}}
 \renewcommand{\thesubsubclausecount}{\thesubclausecount.\arabic{subsubclausecount}}
@@ -170,9 +171,9 @@
             \toftagthis{d}
             \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
               \ifDisplayLeft%
-                #2 --- #3
+                #2 \BilingualAgreementLangDelimiter #3
               \else%
-                #3 --- #2
+                #3 \BilingualAgreementLangDelimiter #2
               \fi
             }}\label{#1}
           \end{leftcolumn*}
@@ -209,8 +210,8 @@
 
 % General text
 \NewDocumentCommand{\addtext}{ +m +m }{%
-  \ifDisplaySideBySide%
-    \begin{sloppypar}  % To prevent overfull lines
+  \begin{sloppypar}  % To prevent overfull lines
+    \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \ifDisplayLeft #1\else #2\fi
@@ -219,12 +220,10 @@
           \ifDisplayLeft #2\else #1\fi
         \end{rightcolumn}
       \end{paracol}
-    \end{sloppypar}
-  \else%
-    \begin{sloppypar}  % To prevent overfull lines
+    \else%
       \ifDisplayLeft #1\else #2\fi
-    \end{sloppypar}
-  \fi
+    \fi
+  \end{sloppypar}
 }% end addtext
 
 \NewDocumentCommand{\addfigure}{ m m m }{%
@@ -247,22 +246,93 @@
     \small
     \renewcommand{\arraystretch}{1.2}
     \hspace*{0.75cm}
-    \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}\hline
-      \bfseries\AgreementCustomerName&
-      \bfseries\AgreementSupplierName\\
 
+    \def\AgreementNameLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementNameLabelLeft\AgreementLabelDelimiter\AgreementNameLabelRight
+          \else
+            \AgreementNameLabelRight\AgreementLabelDelimiter\AgreementNameLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementNameLabelLeft
+          \else
+            \AgreementNameLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementTitleLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementTitleLabelLeft\AgreementLabelDelimiter\AgreementTitleLabelRight
+          \else
+            \AgreementTitleLabelRight\AgreementLabelDelimiter\AgreementTitleLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementTitleLabelLeft
+          \else
+            \AgreementTitleLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementDateLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementDateLabelLeft\AgreementLabelDelimiter\AgreementDateLabelRight
+          \else
+            \AgreementDateLabelRight\AgreementLabelDelimiter\AgreementDateLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementDateLabelLeft
+          \else
+            \AgreementDateLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \begin{tabular}{|p{0.44\textwidth}|p{0.44\textwidth}|}
+      \hline
+      \bfseries\AgreementOtherName&\bfseries\AgreementSelfName\\
       \hline & \\[0.75cm] &\\\hline
 
-      \TextField[name=SignatoryName,charsize=8pt,value=\AgreementCustomerRepresentative,width=0.3\textwidth]{\textbf{Name/Name}: }&
-      \textbf{Name/Name}: \AgreementSupplierRepresentative
+      \TextField[%
+        name=SignatoryName,
+        charsize=8pt,
+        value=\AgreementOtherRepresentative,
+        width=0.3\textwidth
+      ]{%
+        \AgreementNameLabel :
+      }& \AgreementNameLabel : \AgreementSelfRepresentative
       \\\hline
 
-      \TextField[name=SignatoryTitle,charsize=8pt,width=0.3\textwidth]{\textbf{Titel/Title}: }&
-      \textbf{Titel/Title}: \AgreementSupplierTitle
+      \TextField[
+        name=SignatoryTitle,
+        charsize=8pt,
+        value=\AgreementOtherTitle,
+        width=0.3\textwidth
+      ]{%
+        \AgreementTitleLabel :
+      }& \AgreementTitleLabel : \AgreementSelfTitle
       \\\hline
 
-      \TextField[name=SignedDate,charsize=8pt,width=0.3\textwidth]{\textbf{Datum/Date}: }&
-      \textbf{Datum/Date}: \AgreementSupplierDate
+      \TextField[
+        name=SignedDate,
+        charsize=8pt,
+        width=0.3\textwidth
+      ]{%
+        \AgreementDateLabel :
+      }& \AgreementDateLabel : \AgreementDate
       \\\hline
     \end{tabular}
   \end{center}
@@ -299,6 +369,49 @@
           \item[\bfseries\theclausecount] \textbf{#2} \\ #4
         \else%
           \item[\bfseries\theclausecount] \textbf{#3} \\ #5
+        \fi
+      \end{itemize}
+    \fi
+  \end{sloppypar}
+}% end add clause
+
+% Untitled Clause
+% args:
+%   #1 label
+%   #2 leftTitle
+%   #3 rightTitle
+%   #4 leftBody
+%   #5 rightBody
+\NewDocumentCommand{\adduntitledclause}{ m +m +m }{%
+  \refstepcounter{clausecount} % Increase the clausecont counter
+  \begin{sloppypar}  % To prevent overfull lines
+    \ifDisplaySideBySide%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{itemize}
+            \ifDisplayLeft
+              \item[\bfseries\theclausecount\label{#1}] #2
+            \else
+              \item[\bfseries\theclausecount\label{#1}] #3
+            \fi
+          \end{itemize}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{itemize}
+            \ifDisplayLeft%
+              \item[\bfseries\theclausecount] #3
+            \else%
+              \item[\bfseries\theclausecount] #2
+            \fi
+          \end{itemize}
+        \end{rightcolumn}
+      \end{paracol}
+    \else% DisplaySideBySide
+      \begin{itemize}
+        \ifDisplayLeft%
+          \item[\bfseries\theclausecount\label{#1}] #2
+        \else%
+          \item[\bfseries\theclausecount\label{#1}] #3
         \fi
       \end{itemize}
     \fi

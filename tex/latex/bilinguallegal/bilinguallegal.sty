@@ -375,6 +375,49 @@
   \end{sloppypar}
 }% end add clause
 
+% Untitled Clause
+% args:
+%   #1 label
+%   #2 leftTitle
+%   #3 rightTitle
+%   #4 leftBody
+%   #5 rightBody
+\NewDocumentCommand{\adduntitledclause}{ m +m +m }{%
+  \refstepcounter{clausecount} % Increase the clausecont counter
+  \begin{sloppypar}  % To prevent overfull lines
+    \ifDisplaySideBySide%
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \begin{itemize}
+            \ifDisplayLeft
+              \item[\bfseries\theclausecount\label{#1}] #2
+            \else
+              \item[\bfseries\theclausecount\label{#1}] #3
+            \fi
+          \end{itemize}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \begin{itemize}
+            \ifDisplayLeft%
+              \item[\bfseries\theclausecount] #3
+            \else%
+              \item[\bfseries\theclausecount] #2
+            \fi
+          \end{itemize}
+        \end{rightcolumn}
+      \end{paracol}
+    \else% DisplaySideBySide
+      \begin{itemize}
+        \ifDisplayLeft%
+          \item[\bfseries\theclausecount\label{#1}] #2
+        \else%
+          \item[\bfseries\theclausecount\label{#1}] #3
+        \fi
+      \end{itemize}
+    \fi
+  \end{sloppypar}
+}% end add clause
+
 % Adds a subclause
 \NewDocumentCommand{\addsubclause}{ m m m +m +m }{%
   \refstepcounter{subclausecount} % Increase the subclausecont counter

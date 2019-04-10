@@ -3,12 +3,12 @@
 The format is based on [Keep a Changelog][keepachangelog-v1.0.0], and this
 project adheres to [Semantic Versioning][semver-v2.0.0].
 
-## [Unlreleased]
-
+## [0.2.1] - 2019-04-10
 ### Changed
 
  - Refactor `\label` to simplify implementation
  - Remove debug output from previous commit #23f5a92
+ - Fix missing TOC bug on left,single layout
 
 ## [0.2.0] - 2019-03-27
 ### Added

@@ -145,13 +145,13 @@
       \begin{sloppypar}  % To prevent overfull lines
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
-            \toftagthis{d}
+            \toftagthis{left}
             \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
               \ifDisplayLeft #2\else #3\fi
             }}
           \end{leftcolumn*}
           \begin{rightcolumn}
-            \toftagthis{e}
+            \toftagthis{right}
             \hypersetup{bookmarksdepth=-2}
             \section{\ifDisplayLeft #3\else #2\fi}
             \IfStrEq{\getpagerefnumber{#1}}{0}{}{
@@ -168,8 +168,10 @@
       \begin{sloppypar}  % To prevent overfull lines
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
-            \toftagthis{d}
-            \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
+            \toftagthis{left}
+            \section{\texorpdfstring{%
+              \ifDisplayLeft #2\else #3\fi
+            }{%
               \ifDisplayLeft%
                 #2 \BilingualAgreementLangDelimiter #3
               \else%
@@ -178,7 +180,7 @@
             }}
           \end{leftcolumn*}
           \begin{rightcolumn}
-            \toftagthis{e}
+            \toftagthis{right}
             \hypersetup{bookmarksdepth=-2}
             \section{\ifDisplayLeft #3\else #2\fi}
             \hypersetup{bookmarksdepth}% back to tocdepth
@@ -189,17 +191,23 @@
     \fi%
   \else% DisplaySideBySide
     \begin{sloppypar}  % To prevent overfull lines
-      \toftagthis{d}
       \ifOutlineinblocks%
-        \ifDisplayLeft\section{#2}\else\section{#3}\fi
+        \ifDisplayLeft
+          \toftagthis{left}
+          \section{#2}
+        \else% DisplayLeft
+          \toftagthis{right}
+          \section{#3}
+        \fi
       \else%
         \ifDisplayLeft%
+          \toftagthis{left}
           \section{\texorpdfstring{#2}{#2}}
         \else%
+          \toftagthis{right}
           \section{\texorpdfstring{#3}{#3}}
         \fi
       \fi
-      \toftagthis{e}
       \hypersetup{bookmarksdepth=-2}
       \hypersetup{bookmarksdepth}% back to tocdepth
     \end{sloppypar}
@@ -513,19 +521,19 @@
   \ifDisplaySideBySide%
     \begin{minipage}[t]{0.47\textwidth}
       \fontsize{8}{12}
-      \ifDisplayLeft\tableof{d}\else\tableof{e}\fi
+      \ifDisplayLeft\tableof{left}\else\tableof{right}\fi
     \end{minipage}%
     \hspace*{0.03\textwidth}%
     \begin{minipage}[t]{0.48\textwidth}
       \fontsize{8}{12}
-      \ifDisplayLeft\tableof{e}\else\tableof{d}\fi
+      \ifDisplayLeft\tableof{left}\else\tableof{right}\fi
     \end{minipage}%
   \else% DisplaySideBySide
     \fontsize{8}{12}
     \ifDisplayLeft%
-      \tableof{d}
+      \tableof{left}
     \else%
-      \tableof{e}
+      \tableof{right}
     \fi
   \fi% DisplaySideBySide
 }% end insertTOC

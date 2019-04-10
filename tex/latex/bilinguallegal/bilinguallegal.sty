@@ -139,19 +139,19 @@
 \newcounter{seccoun} % Counter for sections
 \setcounter{seccoun}{1}
 \NewDocumentCommand{\addsection}{ m +m +m }{%
+  \label{#1}
   \ifDisplaySideBySide%
     \ifOutlineinblocks%
       \begin{sloppypar}  % To prevent overfull lines
-        \label{#1}
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
-            \toftagthis{d}
+            \toftagthis{left}
             \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
               \ifDisplayLeft #2\else #3\fi
             }}
           \end{leftcolumn*}
           \begin{rightcolumn}
-            \toftagthis{e}
+            \toftagthis{right}
             \hypersetup{bookmarksdepth=-2}
             \section{\ifDisplayLeft #3\else #2\fi}
             \IfStrEq{\getpagerefnumber{#1}}{0}{}{
@@ -168,17 +168,19 @@
       \begin{sloppypar}  % To prevent overfull lines
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
-            \toftagthis{d}
-            \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
+            \toftagthis{left}
+            \section{\texorpdfstring{%
+              \ifDisplayLeft #2\else #3\fi
+            }{%
               \ifDisplayLeft%
                 #2 \BilingualAgreementLangDelimiter #3
               \else%
                 #3 \BilingualAgreementLangDelimiter #2
               \fi
-            }}\label{#1}
+            }}
           \end{leftcolumn*}
           \begin{rightcolumn}
-            \toftagthis{e}
+            \toftagthis{right}
             \hypersetup{bookmarksdepth=-2}
             \section{\ifDisplayLeft #3\else #2\fi}
             \hypersetup{bookmarksdepth}% back to tocdepth
@@ -189,18 +191,23 @@
     \fi%
   \else% DisplaySideBySide
     \begin{sloppypar}  % To prevent overfull lines
-      \toftagthis{d}
       \ifOutlineinblocks%
-        \ifDisplayLeft\section{#2}\else\section{#3}\fi
+        \ifDisplayLeft
+          \toftagthis{left}
+          \section{#2}
+        \else% DisplayLeft
+          \toftagthis{right}
+          \section{#3}
+        \fi
       \else%
         \ifDisplayLeft%
+          \toftagthis{left}
           \section{\texorpdfstring{#2}{#2}}
         \else%
+          \toftagthis{right}
           \section{\texorpdfstring{#3}{#3}}
         \fi
       \fi
-      \label{#1}
-      \toftagthis{e}
       \hypersetup{bookmarksdepth=-2}
       \hypersetup{bookmarksdepth}% back to tocdepth
     \end{sloppypar}
@@ -341,15 +348,16 @@
 % Clause
 \NewDocumentCommand{\addclause}{ m m m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter
+  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft
-              \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
+              \item[\bfseries\theclausecount] \textbf{#2} \\ #4
             \else
-              \item[\bfseries\theclausecount\label{#1}] \textbf{#3} \\ #5
+              \item[\bfseries\theclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
         \end{leftcolumn*}
@@ -384,15 +392,16 @@
 %   #5 rightBody
 \NewDocumentCommand{\adduntitledclause}{ m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter
+  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft
-              \item[\bfseries\theclausecount\label{#1}] #2
+              \item[\bfseries\theclausecount] #2
             \else
-              \item[\bfseries\theclausecount\label{#1}] #3
+              \item[\bfseries\theclausecount] #3
             \fi
           \end{itemize}
         \end{leftcolumn*}
@@ -409,9 +418,9 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
-          \item[\bfseries\theclausecount\label{#1}] #2
+          \item[\bfseries\theclausecount] #2
         \else%
-          \item[\bfseries\theclausecount\label{#1}] #3
+          \item[\bfseries\theclausecount] #3
         \fi
       \end{itemize}
     \fi
@@ -421,15 +430,16 @@
 % Adds a subclause
 \NewDocumentCommand{\addsubclause}{ m m m +m +m }{%
   \refstepcounter{subclausecount} % Increase the subclausecont counter
+  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft%
-              \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
+              \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
             \else%
-              \item[\bfseries\thesubclausecount\label{#1}] \textbf{#3} \\ #5
+              \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
         \end{leftcolumn*}
@@ -484,7 +494,6 @@
       \end{paracol}
     \else% DisplaySideBySide
       \begin{itemize}
-        \item{hi}
         \ifDisplayLeft%
           \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
         \else%
@@ -512,19 +521,19 @@
   \ifDisplaySideBySide%
     \begin{minipage}[t]{0.47\textwidth}
       \fontsize{8}{12}
-      \ifDisplayLeft\tableof{d}\else\tableof{e}\fi
+      \ifDisplayLeft\tableof{left}\else\tableof{right}\fi
     \end{minipage}%
     \hspace*{0.03\textwidth}%
     \begin{minipage}[t]{0.48\textwidth}
       \fontsize{8}{12}
-      \ifDisplayLeft\tableof{e}\else\tableof{d}\fi
+      \ifDisplayLeft\tableof{left}\else\tableof{right}\fi
     \end{minipage}%
   \else% DisplaySideBySide
     \fontsize{8}{12}
     \ifDisplayLeft%
-      \tableof{d}
+      \tableof{left}
     \else%
-      \tableof{e}
+      \tableof{right}
     \fi
   \fi% DisplaySideBySide
 }% end insertTOC

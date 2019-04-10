@@ -139,10 +139,10 @@
 \newcounter{seccoun} % Counter for sections
 \setcounter{seccoun}{1}
 \NewDocumentCommand{\addsection}{ m +m +m }{%
+  \label{#1}
   \ifDisplaySideBySide%
     \ifOutlineinblocks%
       \begin{sloppypar}  % To prevent overfull lines
-        \label{#1}
         \begin{paracol}{2} % specify two columns...
           \begin{leftcolumn*}
             \toftagthis{d}
@@ -175,7 +175,7 @@
               \else%
                 #3 \BilingualAgreementLangDelimiter #2
               \fi
-            }}\label{#1}
+            }}
           \end{leftcolumn*}
           \begin{rightcolumn}
             \toftagthis{e}
@@ -199,7 +199,6 @@
           \section{\texorpdfstring{#3}{#3}}
         \fi
       \fi
-      \label{#1}
       \toftagthis{e}
       \hypersetup{bookmarksdepth=-2}
       \hypersetup{bookmarksdepth}% back to tocdepth
@@ -341,15 +340,16 @@
 % Clause
 \NewDocumentCommand{\addclause}{ m m m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter
+  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft
-              \item[\bfseries\theclausecount\label{#1}] \textbf{#2} \\ #4
+              \item[\bfseries\theclausecount] \textbf{#2} \\ #4
             \else
-              \item[\bfseries\theclausecount\label{#1}] \textbf{#3} \\ #5
+              \item[\bfseries\theclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
         \end{leftcolumn*}
@@ -384,15 +384,16 @@
 %   #5 rightBody
 \NewDocumentCommand{\adduntitledclause}{ m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter
+  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft
-              \item[\bfseries\theclausecount\label{#1}] #2
+              \item[\bfseries\theclausecount] #2
             \else
-              \item[\bfseries\theclausecount\label{#1}] #3
+              \item[\bfseries\theclausecount] #3
             \fi
           \end{itemize}
         \end{leftcolumn*}
@@ -409,9 +410,9 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
-          \item[\bfseries\theclausecount\label{#1}] #2
+          \item[\bfseries\theclausecount] #2
         \else%
-          \item[\bfseries\theclausecount\label{#1}] #3
+          \item[\bfseries\theclausecount] #3
         \fi
       \end{itemize}
     \fi
@@ -421,15 +422,16 @@
 % Adds a subclause
 \NewDocumentCommand{\addsubclause}{ m m m +m +m }{%
   \refstepcounter{subclausecount} % Increase the subclausecont counter
+  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft%
-              \item[\bfseries\thesubclausecount\label{#1}] \textbf{#2} \\ #4
+              \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
             \else%
-              \item[\bfseries\thesubclausecount\label{#1}] \textbf{#3} \\ #5
+              \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
         \end{leftcolumn*}

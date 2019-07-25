@@ -137,8 +137,8 @@
 
 % Section
 \newcounter{seccoun} % Counter for sections
-\setcounter{seccoun}{1}
 \NewDocumentCommand{\addsection}{ m +m +m }{%
+  \refstepcounter{seccoun}
   \label{#1}
   \ifDisplaySideBySide%
     \ifOutlineinblocks%
@@ -163,7 +163,6 @@
           \end{rightcolumn}
         \end{paracol}
       \end{sloppypar}
-      \stepcounter{seccoun}
     \else% Outlineinblocks
       \begin{sloppypar}  % To prevent overfull lines
         \begin{paracol}{2} % specify two columns...
@@ -187,7 +186,6 @@
           \end{rightcolumn}
         \end{paracol}
       \end{sloppypar}
-      \stepcounter{seccoun}
     \fi%
   \else% DisplaySideBySide
     \begin{sloppypar}  % To prevent overfull lines
@@ -211,7 +209,6 @@
       \hypersetup{bookmarksdepth=-2}
       \hypersetup{bookmarksdepth}% back to tocdepth
     \end{sloppypar}
-    \stepcounter{seccoun}
   \fi
 }% end addsection
 

@@ -342,6 +342,155 @@
   \end{center}
 }% end addsigsection
 
+% Tripartite signature section
+% TODO remove harcoded labels
+% TODO take input from args
+\NewDocumentCommand{\addtrisigsection}{ }{%
+  \begin{center}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \hspace*{0.75cm}
+
+    \def\AgreementNameLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementNameLabelLeft\AgreementLabelDelimiter\AgreementNameLabelRight
+          \else
+            \AgreementNameLabelRight\AgreementLabelDelimiter\AgreementNameLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementNameLabelLeft
+          \else
+            \AgreementNameLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementTitleLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementTitleLabelLeft\AgreementLabelDelimiter\AgreementTitleLabelRight
+          \else
+            \AgreementTitleLabelRight\AgreementLabelDelimiter\AgreementTitleLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementTitleLabelLeft
+          \else
+            \AgreementTitleLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementSignatureLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementSignatureLabelLeft\AgreementLabelDelimiter\AgreementSignatureLabelRight
+          \else
+            \AgreementSignatureLabelRight\AgreementLabelDelimiter\AgreementSignatureLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementSignatureLabelLeft
+          \else
+            \AgreementSignatureLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    \def\AgreementDateLabel{%
+      \textbf{%
+        \ifDisplaySideBySide%
+          \ifDisplayLeft
+            \AgreementDateLabelLeft\AgreementLabelDelimiter\AgreementDateLabelRight
+          \else
+            \AgreementDateLabelRight\AgreementLabelDelimiter\AgreementDateLabelLeft
+          \fi
+        \else
+          \ifDisplayLeft
+            \AgreementDateLabelLeft
+          \else
+            \AgreementDateLabelRight
+          \fi
+        \fi
+      }
+    }
+
+    %\begin{tabular}[c]{l|l|l|l|}
+    \begin{tabular}[c]{m{0.1\textwidth}|m{0.25\textwidth}|m{0.25\textwidth}|m{0.25\textwidth}|}
+      \cline{2-4}
+      & \multicolumn{2}{l|}{\bfseries\AgreementOtherName}&\multicolumn{1}{l|}{\bfseries\AgreementSelfName}\\\hline
+
+      \multicolumn{1}{|l|}{\AgreementNameLabel}
+      &
+      \TextField[%
+        name=SignatoryName1,
+        charsize=8pt,
+        value=\AgreementOtherRepresentativeA,
+        width=0.23\textwidth,
+        borderwidth=0
+      ]
+      &
+      \TextField[%
+        name=SignatoryName2,
+        charsize=8pt,
+        value=\AgreementOtherRepresentativeB,
+        width=0.23\textwidth,
+        borderwidth=0
+      ]
+      &
+      \multicolumn{1}{l|}{\AgreementSelfRepresentative}
+
+      \\\hline
+
+      \multicolumn{1}{|l|}{\AgreementTitleLabel} &
+      \TextField[
+        name=SignatoryTitle,
+        charsize=8pt,
+        value=\AgreementOtherTitleA,
+        width=0.23\textwidth,
+        borderwidth=0
+      ] &
+      \TextField[
+        name=SignatoryTitle,
+        charsize=8pt,
+        value=\AgreementOtherTitleB,
+        width=0.23\textwidth,
+        borderwidth=0
+      ] &
+      \multicolumn{1}{l|}{\AgreementSelfTitle}
+
+      \\\hline
+
+      \multicolumn{1}{|l|}{\AgreementSignatureLabel} & & &\\[50pt]
+      \hline
+
+      \multicolumn{1}{|l|}{\AgreementDateLabel} &
+      \TextField[
+        name=SignedDate,
+        charsize=8pt,
+        width=0.23\textwidth,
+        borderwidth=0
+      ] &
+      \TextField[
+        name=SignedDate,
+        charsize=8pt,
+        width=0.23\textwidth,
+        borderwidth=0
+      ] &
+      \multicolumn{1}{l|}{\AgreementDate}
+      \\\hline
+    \end{tabular}
+  \end{center}
+}% end addsigsection
+
 % Clause
 \NewDocumentCommand{\addclause}{ m m m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter

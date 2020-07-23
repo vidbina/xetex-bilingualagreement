@@ -139,72 +139,62 @@
 \newcounter{seccoun} % Counter for sections
 \NewDocumentCommand{\addsection}{ m +m +m }{%
   \refstepcounter{seccoun}
-  \label{#1}
   \ifDisplaySideBySide%
-    \ifOutlineinblocks%
-      \begin{sloppypar}  % To prevent overfull lines
-        \begin{paracol}{2} % specify two columns...
-          \begin{leftcolumn*}
-            \toftagthis{left}
-            \section{\texorpdfstring{\ifDisplayLeft #2\else #3\fi}{%
+    \begin{sloppypar}  % To prevent overfull lines
+      \begin{paracol}{2} % specify two columns...
+        \begin{leftcolumn*}
+          \toftagthis{left}
+          \section{\texorpdfstring{%
+            \ifDisplayLeft #2\else #3\fi
+          }{%
+            \ifOutlineinblocks%
               \ifDisplayLeft #2\else #3\fi
-            }}
-          \end{leftcolumn*}
-          \begin{rightcolumn}
-            \toftagthis{right}
-            \hypersetup{bookmarksdepth=-2}
-            \section{\ifDisplayLeft #3\else #2\fi}
+            \else% Outlineinblocks
+              \ifDisplayLeft%
+                #2 \BilingualAgreementLangDelimiter #3
+              \else%
+                #3 \BilingualAgreementLangDelimiter #2
+              \fi
+            \fi
+          }}
+        \end{leftcolumn*}
+        \begin{rightcolumn}
+          \toftagthis{right}
+          \hypersetup{bookmarksdepth=-2}
+          \section{\ifDisplayLeft #3\else #2\fi}
+          \ifOutlineinblocks%
             \IfStrEq{\getpagerefnumber{#1}}{0}{}{
               \BookmarkAtEnd{%
               \expandafter%
               \bookmark[page=\getpagerefnumber{#1}, level=1]{#3}%
             }}
             \hypersetup{bookmarksdepth}% back to tocdepth
-          \end{rightcolumn}
-        \end{paracol}
-      \end{sloppypar}
-    \else% Outlineinblocks
-      \begin{sloppypar}  % To prevent overfull lines
-        \begin{paracol}{2} % specify two columns...
-          \begin{leftcolumn*}
-            \toftagthis{left}
-            \section{\texorpdfstring{%
-              \ifDisplayLeft #2\else #3\fi
-            }{%
-              \ifDisplayLeft%
-                #2 \BilingualAgreementLangDelimiter #3
-              \else%
-                #3 \BilingualAgreementLangDelimiter #2
-              \fi
-            }}
-          \end{leftcolumn*}
-          \begin{rightcolumn}
-            \toftagthis{right}
-            \hypersetup{bookmarksdepth=-2}
-            \section{\ifDisplayLeft #3\else #2\fi}
+          \else
             \hypersetup{bookmarksdepth}% back to tocdepth
-          \end{rightcolumn}
-        \end{paracol}
-      \end{sloppypar}
-    \fi%
+          \fi
+        \end{rightcolumn}
+      \end{paracol}
+    \end{sloppypar}
   \else% DisplaySideBySide
     \begin{sloppypar}  % To prevent overfull lines
-      \ifOutlineinblocks%
-        \ifDisplayLeft
-          \toftagthis{left}
-          \section{#2}
-        \else% DisplayLeft
-          \toftagthis{right}
-          \section{#3}
-        \fi
-      \else%
-        \ifDisplayLeft%
-          \toftagthis{left}
-          \section{\texorpdfstring{#2}{#2}}
-        \else%
-          \toftagthis{right}
-          \section{\texorpdfstring{#3}{#3}}
-        \fi
+      \ifDisplayLeft
+        \toftagthis{left}
+        \section{%
+          \ifOutlineinblocks%
+            #2
+          \else%
+            \texorpdfstring{#2}{#2}
+          \fi
+        }
+      \else% DisplayLeft
+        \toftagthis{right}
+        \section{
+          \ifOutlineinblocks%
+            #3
+          \else%
+            \texorpdfstring{#3}{#3}
+          \fi
+        }
       \fi
       \hypersetup{bookmarksdepth=-2}
       \hypersetup{bookmarksdepth}% back to tocdepth

@@ -488,15 +488,16 @@
 % Clause
 \NewDocumentCommand{\addclause}{ m m m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter
-  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft
+              \label{clause:L:#1}
               \item[\bfseries\theclausecount] \textbf{#2} \\ #4
             \else
+              \label{clause:R:#1}
               \item[\bfseries\theclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
@@ -504,8 +505,10 @@
         \begin{rightcolumn}
           \begin{itemize}
             \ifDisplayLeft%
+              \label{clause:R:#1}
               \item[\bfseries\theclausecount] \textbf{#3} \\ #5
             \else%
+              \label{clause:L:#1}
               \item[\bfseries\theclausecount] \textbf{#2} \\ #4
             \fi
           \end{itemize}
@@ -514,8 +517,10 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
+          \label{clause:L:#1}
           \item[\bfseries\theclausecount] \textbf{#2} \\ #4
         \else%
+          \label{clause:R:#1}
           \item[\bfseries\theclausecount] \textbf{#3} \\ #5
         \fi
       \end{itemize}
@@ -532,15 +537,16 @@
 %   #5 rightBody
 \NewDocumentCommand{\adduntitledclause}{ m +m +m }{%
   \refstepcounter{clausecount} % Increase the clausecont counter
-  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft
+              \label{clause:L:#1}
               \item[\bfseries\theclausecount] #2
             \else
+              \label{clause:R:#1}
               \item[\bfseries\theclausecount] #3
             \fi
           \end{itemize}
@@ -548,8 +554,10 @@
         \begin{rightcolumn}
           \begin{itemize}
             \ifDisplayLeft%
+              \label{clause:R:#1}
               \item[\bfseries\theclausecount] #3
             \else%
+              \label{clause:L:#1}
               \item[\bfseries\theclausecount] #2
             \fi
           \end{itemize}
@@ -558,8 +566,10 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
+          \label{clause:L:#1}
           \item[\bfseries\theclausecount] #2
         \else%
+          \label{clause:R:#1}
           \item[\bfseries\theclausecount] #3
         \fi
       \end{itemize}

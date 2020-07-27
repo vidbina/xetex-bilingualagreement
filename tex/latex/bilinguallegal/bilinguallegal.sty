@@ -141,7 +141,7 @@
 
 % Section
 \newcounter{seccoun} % Counter for sections
-\NewDocumentCommand{\addsection}{ m +m +m }{%
+\NewDocumentCommand{\addsection}{ m +m +m o o}{%
   \refstepcounter{seccoun}
   \ifDisplaySideBySide%
     \begin{sloppypar}  % To prevent overfull lines

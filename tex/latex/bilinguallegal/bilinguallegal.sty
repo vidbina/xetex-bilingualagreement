@@ -75,7 +75,11 @@
         \begin{leftcolumn*}
           \begin{center}
             \LARGE\bfseries
-            \ifDisplayLeft #1\else #2\fi
+            \ifDisplayLeft%
+              \selectlanguage{\AgreementLanguageLeft}#1%
+            \else%
+              \selectlanguage{\AgreementLanguageRight}#2%
+            \fi
             %\IfStrEq{\getpagerefnumber{thetitle}}{0}{}{
             %\expandafter%
             %\bookmark[page=\getpagerefnumber{thetitle}, level=-1]{%
@@ -595,8 +599,10 @@
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft%
+              \expandafter\selectlanguage\expandafter{\AgreementLanguageLeft}
               \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
             \else%
+              \expandafter\selectlanguage\expandafter{\AgreementLanguageRight}
               \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
@@ -604,8 +610,10 @@
         \begin{rightcolumn}
           \begin{itemize}
             \ifDisplayLeft%
+              \expandafter\selectlanguage\expandafter{\AgreementLanguageRight}
               \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
             \else%
+              \expandafter\selectlanguage\expandafter{\AgreementLanguageLeft}
               \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
             \fi
           \end{itemize}
@@ -614,9 +622,11 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
+          \expandafter\selectlanguage\expandafter{\AgreementLanguageLeft}
           \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
         \else%
-           \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
+          \expandafter\selectlanguage\expandafter{\AgreementLanguageRight}
+          \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
         \fi
       \end{itemize}
     \fi

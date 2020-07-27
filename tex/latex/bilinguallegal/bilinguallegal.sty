@@ -592,7 +592,6 @@
 % Adds a subclause
 \NewDocumentCommand{\addsubclause}{ m m m +m +m }{%
   \refstepcounter{subclausecount} % Increase the subclausecont counter
-  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
@@ -600,9 +599,11 @@
           \begin{itemize}
             \ifDisplayLeft%
               \expandafter\selectlanguage\expandafter{\AgreementLanguageLeft}
+              \label{subclause:L:#1}
               \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
             \else%
               \expandafter\selectlanguage\expandafter{\AgreementLanguageRight}
+              \label{subclause:R:#1}
               \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
@@ -611,9 +612,11 @@
           \begin{itemize}
             \ifDisplayLeft%
               \expandafter\selectlanguage\expandafter{\AgreementLanguageRight}
+              \label{subclause:R:#1}
               \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
             \else%
               \expandafter\selectlanguage\expandafter{\AgreementLanguageLeft}
+              \label{subclause:L:#1}
               \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
             \fi
           \end{itemize}
@@ -623,9 +626,11 @@
       \begin{itemize}
         \ifDisplayLeft%
           \expandafter\selectlanguage\expandafter{\AgreementLanguageLeft}
+          \label{subclause:L:#1}
           \item[\bfseries\thesubclausecount] \textbf{#2} \\ #4
         \else%
           \expandafter\selectlanguage\expandafter{\AgreementLanguageRight}
+          \label{subclause:R:#1}
           \item[\bfseries\thesubclausecount] \textbf{#3} \\ #5
         \fi
       \end{itemize}
@@ -636,15 +641,16 @@
 % Adds untitled subclause
 \NewDocumentCommand{\adduntitledsubclause}{ m +m +m }{%
   \refstepcounter{subclausecount} % Increase the subclausecont counter
-  \label{#1}
   \begin{sloppypar}  % To prevent overfull lines
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft%
+              \label{subclause:L:#1}
               \item[\bfseries\thesubclausecount] #2
             \else%
+              \label{subclause:R:#1}
               \item[\bfseries\thesubclausecount] #3
             \fi
           \end{itemize}
@@ -652,8 +658,10 @@
         \begin{rightcolumn}
           \begin{itemize}
             \ifDisplayLeft%
+              \label{subclause:R:#1}
               \item[\bfseries\thesubclausecount] #3
             \else%
+              \label{subclause:L:#1}
               \item[\bfseries\thesubclausecount] #2
             \fi
           \end{itemize}
@@ -662,8 +670,10 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
+           \label{subclause:L:#1}
           \item[\bfseries\thesubclausecount] #2
         \else%
+           \label{subclause:R:#1}
            \item[\bfseries\thesubclausecount] #3
         \fi
       \end{itemize}
@@ -676,14 +686,15 @@
   \refstepcounter{subsubclausecount} % Increase the subclausecont counter
 
   \begin{sloppypar}  % To prevent overfull lines
-    \label{#1}
     \ifDisplaySideBySide%
       \begin{paracol}{2} % specify two columns...
         \begin{leftcolumn*}
           \begin{itemize}
             \ifDisplayLeft%
+              \label{subsubclause:L:#1}
               \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
             \else%
+              \label{subsubclause:R:#1}
               \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
             \fi
           \end{itemize}
@@ -691,8 +702,10 @@
         \begin{rightcolumn}
           \begin{itemize}
             \ifDisplayLeft%
+              \label{subsubclause:R:#1}
               \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
             \else%
+              \label{subsubclause:L:#1}
               \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
             \fi
           \end{itemize}
@@ -701,8 +714,10 @@
     \else% DisplaySideBySide
       \begin{itemize}
         \ifDisplayLeft%
+          \label{subsubclause:L:#1}
           \item[\bfseries\thesubsubclausecount] \textbf{#2} \\ #4
         \else%
+          \label{subsubclause:R:#1}
           \item[\bfseries\thesubsubclausecount] \textbf{#3} \\ #5
         \fi
       \end{itemize}

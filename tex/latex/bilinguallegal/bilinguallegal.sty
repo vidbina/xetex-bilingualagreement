@@ -149,10 +149,10 @@
         \begin{leftcolumn*}
           \toftagthis{left}
           \section{\texorpdfstring{%
-            \ifDisplayLeft #2\else #3\fi
+            \ifDisplayLeft #2\else #3\fi%
           }{%
             \ifOutlineinblocks%
-              \ifDisplayLeft #2\else #3\fi
+              \ifDisplayLeft #2\else #3\fi%
             \else% Outlineinblocks
               \ifDisplayLeft%
                 #2 \BilingualAgreementLangDelimiter #3
@@ -194,21 +194,13 @@
       \ifDisplayLeft
         \toftagthis{left}
         \section{%
-          \ifOutlineinblocks%
-            #2
-          \else%
-            \texorpdfstring{#2}{#2}
-          \fi
+          \ifOutlineinblocks #2\else\texorpdfstring{#2}{#2}\fi
         }
         \label{section:L:#1}
       \else% DisplayLeft
         \toftagthis{right}
         \section{
-          \ifOutlineinblocks%
-            #3
-          \else%
-            \texorpdfstring{#3}{#3}
-          \fi
+          \ifOutlineinblocks #3\else \texorpdfstring{#3}{#3}\fi
         }
         \label{section:R:#1}
       \fi
